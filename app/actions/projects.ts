@@ -1,0 +1,55 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { prisma } from "@/lib/db/prisma";
+import { generateCampaignPlanWithOptionalAi } from "@/lib/gtm/generate";
+import { campaignPlanToRecord } from "@/lib/gtm/persistence";
+import { projectIntakeSchema } from "@/lib/validation/project";
+
+function value(formData: FormData, key: string) {
+  return String(formData.get(key) ?? "");
+}
+
+export async function createProjectAndCampaign(formData: FormData) {
+  const input = projectIntakeSchema.parse({
+    name: value(formData, "name"),
+    website: value(formData, "website"),
+    category: value(formData, "category"),
+    stage: value(formData, "stage"),
+    targetMarkets: formData.getAll("targetMarkets").map(String),
+    audiences: formData.getAll("audiences").map(String),
+    summary: value(formData, "summary"),
+    moat: value(formData, "moat"),
+    launchGoal: value(formData, "launchGoal"),
+    budgetBand: value(formData, "budgetBand"),
+    tone: value(formData, "tone")
+  });
+
+  const plan = await generateCampaignPlanWithOptionalAi(input);
+  const campaign = await prisma.$transaction(async (tx) => {
+    const project = await tx.project.create({
+      data: {
+        name: input.name,
+        website: input.website || null,
+        category: input.category,
+        stage: input.stage,
+        targetMarkets: JSON.stringify(input.targetMarkets),
+        audiences: JSON.stringify(input.audiences),
+        summary: input.summary,
+        moat: input.moat,
+        launchGoal: input.launchGoal,
+        budgetBand: input.budgetBand,
+        tone: input.tone
+      }
+    });
+
+    return tx.campaign.create({
+      data: {
+        projectId: project.id,
+        ...campaignPlanToRecord(plan)
+      }
+    });
+  });
+
+  redirect(`/campaigns/${campaign.id}`);
+}
