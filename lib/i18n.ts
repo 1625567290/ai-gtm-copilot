@@ -199,6 +199,7 @@ export const dictionaries = {
       tagline: "Launch strategy workspace",
       navDashboard: "Dashboard",
       navNewProject: "New GTM Project",
+      navKolStudio: "KOL Studio",
       navDemoGuide: "Demo Guide",
       mobileDashboard: "Dashboard",
       jeFit: "JE Labs fit",
@@ -292,6 +293,33 @@ export const dictionaries = {
       metricsDescription: "Recommended success signals.",
       risks: "Risks"
     },
+    kol: {
+      eyebrow: "KOL activation intelligence",
+      title: "KOL Market Fit",
+      campaignsTitle: "Campaigns",
+      campaignsDescription: "Pick a saved launch plan to score KOL-market fit.",
+      summaryTitle: "Activation Summary",
+      avgFit: "Avg. Fit",
+      bestMarket: "Best Market",
+      coreMarkets: "Core Markets",
+      activationBrief: "Activation Brief",
+      marketFitMap: "Market Fit Map",
+      marketFitDescription: "Deterministic scores based on market, audience, stage, category, and recommended KOL archetypes.",
+      recommendedArchetype: "Recommended archetype",
+      budgetMode: "Budget mode",
+      assetAngle: "Asset angle",
+      rationale: "Rationale",
+      nextAction: "Next action",
+      copyReadyBrief: "Copy-ready brief",
+      emptyTitle: "Create a campaign first",
+      emptyDescription: "KOL fit is generated from saved GTM launch plans.",
+      createProject: "Create project",
+      tierLabels: {
+        Core: "Core",
+        Expansion: "Expansion",
+        Probe: "Probe"
+      }
+    },
     demo: {
       eyebrow: "Interview presentation",
       title: "Demo Guide",
@@ -303,6 +331,7 @@ export const dictionaries = {
         "Start on the dashboard and explain that saved campaigns are persisted in SQLite.",
         "Open VectorForge to show the English AI Infra launch plan.",
         "Open MossBench to show a Chinese GTM brief for Asia-focused developer growth.",
+        "Open KOL Studio to show market scoring, recommended KOL archetypes, and a copy-ready brief.",
         "Create a new project and switch the brief language between English, Chinese, and Japanese.",
         "Export markdown to show the work can become a client-facing brief or deck input."
       ],
@@ -311,6 +340,7 @@ export const dictionaries = {
         "Product thinking: turns agency GTM work into a repeatable operator tool.",
         "Engineering: full-stack Next.js, Prisma, Server Actions, tests, and seed data.",
         "Growth fluency: covers ICP, KOL, channels, content, calendar, metrics, and risks.",
+        "KOL execution: turns market and audience context into prioritized KOL activation briefs.",
         "Global readiness: UI and generated briefs support English, Chinese, and Japanese."
       ],
       closeTitle: "Closing line",
@@ -327,6 +357,7 @@ export const dictionaries = {
       tagline: "发布策略工作台",
       navDashboard: "仪表盘",
       navNewProject: "新建 GTM 项目",
+      navKolStudio: "KOL 工作台",
       navDemoGuide: "展示指南",
       mobileDashboard: "仪表盘",
       jeFit: "适配 JE Labs",
@@ -412,6 +443,33 @@ export const dictionaries = {
       metricsDescription: "建议关注的成功信号。",
       risks: "风险"
     },
+    kol: {
+      eyebrow: "KOL 启动智能",
+      title: "KOL 市场匹配",
+      campaignsTitle: "活动",
+      campaignsDescription: "选择一个已保存的发布计划，评估 KOL-market fit。",
+      summaryTitle: "启动摘要",
+      avgFit: "平均匹配度",
+      bestMarket: "最佳市场",
+      coreMarkets: "核心市场",
+      activationBrief: "启动 Brief",
+      marketFitMap: "市场匹配地图",
+      marketFitDescription: "基于市场、受众、阶段、类别和推荐 KOL 类型生成确定性评分。",
+      recommendedArchetype: "推荐 KOL 类型",
+      budgetMode: "预算模式",
+      assetAngle: "内容角度",
+      rationale: "判断依据",
+      nextAction: "下一步动作",
+      copyReadyBrief: "可直接使用的 brief",
+      emptyTitle: "先创建一个 campaign",
+      emptyDescription: "KOL 匹配会基于已保存的 GTM 发布计划生成。",
+      createProject: "新建项目",
+      tierLabels: {
+        Core: "核心",
+        Expansion: "扩张",
+        Probe: "验证"
+      }
+    },
     demo: {
       eyebrow: "面试展示",
       title: "展示指南",
@@ -423,6 +481,7 @@ export const dictionaries = {
         "从 dashboard 开始，说明 campaign 会持久化保存到 SQLite。",
         "打开 VectorForge，展示英文 AI Infra 发布计划。",
         "打开 MossBench，展示面向亚洲开发者增长的中文 GTM brief。",
+        "打开 KOL 工作台，展示市场评分、推荐 KOL 类型和可直接使用的 brief。",
         "新建项目，并切换 brief 语言为英文、中文或日文。",
         "导出 Markdown，说明它可以继续变成客户 brief 或 deck 输入。"
       ],
@@ -431,6 +490,7 @@ export const dictionaries = {
         "产品判断：把 agency 的 GTM 工作变成可重复的运营工具。",
         "工程能力：Next.js 全栈、Prisma、Server Actions、测试和 seed 数据。",
         "增长理解：覆盖 ICP、KOL、渠道、内容、日历、指标和风险。",
+        "KOL 执行：把市场和受众上下文转成优先级明确的 KOL activation brief。",
         "全球化准备：UI 和生成 brief 支持英文、中文、日文。"
       ],
       closeTitle: "收尾表达",
@@ -447,6 +507,7 @@ export const dictionaries = {
       tagline: "ローンチ戦略ワークスペース",
       navDashboard: "ダッシュボード",
       navNewProject: "新規 GTM プロジェクト",
+      navKolStudio: "KOL スタジオ",
       navDemoGuide: "デモガイド",
       mobileDashboard: "ダッシュボード",
       jeFit: "JE Labs との適合性",
@@ -533,6 +594,33 @@ export const dictionaries = {
       metricsDescription: "推奨される成功シグナル。",
       risks: "リスク"
     },
+    kol: {
+      eyebrow: "KOL アクティベーション intelligence",
+      title: "KOL 市場フィット",
+      campaignsTitle: "キャンペーン",
+      campaignsDescription: "保存済みのローンチ計画を選び、KOL-market fit を評価します。",
+      summaryTitle: "アクティベーション概要",
+      avgFit: "平均フィット",
+      bestMarket: "最適市場",
+      coreMarkets: "Core 市場",
+      activationBrief: "アクティベーション Brief",
+      marketFitMap: "市場フィットマップ",
+      marketFitDescription: "市場、オーディエンス、ステージ、カテゴリ、推奨 KOL タイプから決定的にスコアリングします。",
+      recommendedArchetype: "推奨 KOL タイプ",
+      budgetMode: "予算モード",
+      assetAngle: "アセット角度",
+      rationale: "根拠",
+      nextAction: "次のアクション",
+      copyReadyBrief: "そのまま使える brief",
+      emptyTitle: "まず campaign を作成",
+      emptyDescription: "KOL fit は保存済み GTM ローンチ計画から生成されます。",
+      createProject: "プロジェクトを作成",
+      tierLabels: {
+        Core: "Core",
+        Expansion: "Expansion",
+        Probe: "Probe"
+      }
+    },
     demo: {
       eyebrow: "面接プレゼンテーション",
       title: "デモガイド",
@@ -544,6 +632,7 @@ export const dictionaries = {
         "dashboard から始め、campaign が SQLite に保存されることを説明します。",
         "VectorForge を開き、英語の AI Infra ローンチ計画を見せます。",
         "MossBench を開き、アジア向け開発者成長の中国語 GTM brief を見せます。",
+        "KOL スタジオを開き、市場スコア、推奨 KOL タイプ、そのまま使える brief を見せます。",
         "新規プロジェクトを作成し、brief 言語を英語・中国語・日本語に切り替えます。",
         "Markdown をエクスポートし、client brief や deck の入力にできることを示します。"
       ],
@@ -552,6 +641,7 @@ export const dictionaries = {
         "プロダクト思考：agency の GTM 業務を再利用可能な運用ツールに変換。",
         "エンジニアリング：Next.js full-stack、Prisma、Server Actions、テスト、seed データ。",
         "Growth 理解：ICP、KOL、チャネル、コンテンツ、カレンダー、指標、リスクを網羅。",
+        "KOL 実行：市場とオーディエンス文脈を優先度付き KOL activation brief に変換。",
         "グローバル対応：UI と生成 brief が英語・中国語・日本語に対応。"
       ],
       closeTitle: "締めの一言",

@@ -21,7 +21,8 @@ describe("i18n helpers", () => {
     expect(Object.keys(dictionaries).sort()).toEqual(["en", "ja", "zh"]);
     expect(getDictionary("zh").dashboard.title).toBe("GTM 工作台");
     expect(getDictionary("ja").dashboard.title).toBe("GTM ワークスペース");
+    expect(getDictionary("en").app.navKolStudio).toBe("KOL Studio");
     expect(getDictionary("zh").app.navDemoGuide).toBe("展示指南");
-    expect(getDictionary("ja").demo.route).toHaveLength(5);
+    expect(getDictionary("ja").demo.route).toHaveLength(6);
   });
 });

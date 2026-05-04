@@ -23,6 +23,7 @@ Open `http://localhost:3000`.
 - Optional OpenAI-compatible mode with safe local fallback.
 - shadcn/ui-style dashboard components with lucide icons.
 - English, Chinese, and Japanese UI plus localized generated briefs.
+- KOL Market Fit scoring and copy-ready activation briefs.
 - A `/demo` presentation guide for interview walkthroughs.
 - Vitest coverage for validation, GTM generation, and markdown export.
 
@@ -31,8 +32,9 @@ Open `http://localhost:3000`.
 1. Open `/demo?lang=en`, `/demo?lang=zh`, or `/demo?lang=ja` for the interview talk track.
 2. Start on the dashboard and show the seeded VectorForge campaign.
 3. Open MossBench to show a Chinese GTM brief for Asia-focused developer growth.
-4. Create a new GTM project from `/projects/new`, switch the brief language, and generate another campaign.
-5. Export the markdown brief as a client-facing GTM document or deck input.
+4. Open `/kol` to show KOL market scoring, recommended archetypes, and copy-ready activation briefs.
+5. Create a new GTM project from `/projects/new`, switch the brief language, and generate another campaign.
+6. Export the markdown brief as a client-facing GTM document or deck input.
 
 ## Languages
 

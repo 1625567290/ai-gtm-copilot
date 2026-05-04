@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, FilePlus2, LayoutDashboard, Route } from "lucide-react";
+import { ArrowRight, CheckCircle2, FilePlus2, LayoutDashboard, Route, UsersRound } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -56,7 +56,7 @@ export default async function DemoGuidePage({
                 {dictionary.demo.opening}
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-3 pt-5 sm:grid-cols-2">
+            <CardContent className="grid gap-3 pt-5 lg:grid-cols-3">
               <Link
                 href={withLocale("/", locale)}
                 className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
@@ -64,6 +64,16 @@ export default async function DemoGuidePage({
                 <span className="inline-flex items-center gap-2">
                   <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                   {dictionary.demo.openDashboard}
+                </span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href={withLocale("/kol", locale)}
+                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <UsersRound className="h-4 w-4" aria-hidden="true" />
+                  {dictionary.app.navKolStudio}
                 </span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>

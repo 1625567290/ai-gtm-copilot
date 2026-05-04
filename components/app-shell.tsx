@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BarChart3, BrainCircuit, FilePlus2, Presentation, Rocket } from "lucide-react";
+import { BarChart3, BrainCircuit, FilePlus2, Presentation, Rocket, UsersRound } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { type Dictionary, type Locale, localeLabels, locales, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,7 @@ export function AppShell({
   const navItems = [
     { href: "/", label: dictionary.app.navDashboard, icon: BarChart3 },
     { href: "/projects/new", label: dictionary.app.navNewProject, icon: FilePlus2 },
+    { href: "/kol", label: dictionary.app.navKolStudio, icon: UsersRound },
     { href: "/demo", label: dictionary.app.navDemoGuide, icon: Presentation }
   ];
 
@@ -79,7 +80,7 @@ export function AppShell({
             <div className="flex w-full flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end">
               <div className="flex flex-wrap items-center gap-1 lg:hidden">
                 {navItems
-                  .filter((item) => item.href === "/" || item.href === "/demo")
+                  .filter((item) => item.href === "/" || item.href === "/kol" || item.href === "/demo")
                   .filter((item) => item.href !== currentPath)
                   .map((item) => (
                     <Link
