@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import type { Dictionary, Locale } from "@/lib/i18n";
 import {
   audiences,
   budgetBands,
@@ -42,10 +43,12 @@ function Field({
 
 function CheckboxGroup({
   name,
-  options
+  options,
+  labels
 }: {
   name: string;
   options: readonly string[];
+  labels: Partial<Record<string, string>>;
 }) {
   return (
     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -55,49 +58,56 @@ function CheckboxGroup({
           className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-white px-3 py-2 text-sm transition-colors duration-200 hover:bg-secondary"
         >
           <Checkbox name={name} value={option} />
-          <span>{option}</span>
+          <span>{labels[option] ?? option}</span>
         </label>
       ))}
     </div>
   );
 }
 
-export function ProjectIntakeForm() {
+export function ProjectIntakeForm({
+  locale,
+  dictionary
+}: {
+  locale: Locale;
+  dictionary: Dictionary;
+}) {
   return (
     <form action={createProjectAndCampaign} className="grid gap-6 xl:grid-cols-[1fr_360px]">
+      <input type="hidden" name="locale" value={locale} />
       <Card>
         <CardHeader>
-          <CardTitle>Product Intake</CardTitle>
+          <CardTitle>{dictionary.intake.cardTitle}</CardTitle>
           <CardDescription>
-            Capture enough context for a GTM strategist to generate a credible launch plan.
+            {dictionary.intake.cardDescription}
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-5">
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Product name">
+            <Field label={dictionary.intake.productName}>
               <Input name="name" placeholder="VectorForge" required />
             </Field>
-            <Field label="Website">
+            <Field label={dictionary.intake.website}>
               <Input name="website" placeholder="https://example.ai" type="url" />
             </Field>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            <Field label="Category">
+            <Field label={dictionary.intake.category}>
               <Select name="category" defaultValue="AI Infra">
                 {categories.map((category) => (
-                  <option key={category} value={category}>{category}</option>
+                  <option key={category} value={category}>{dictionary.options.categories[category]}</option>
                 ))}
               </Select>
             </Field>
-            <Field label="Stage">
+            <Field label={dictionary.intake.stage}>
               <Select name="stage" defaultValue="pre-launch">
                 {stages.map((stage) => (
-                  <option key={stage} value={stage}>{stage}</option>
+                  <option key={stage} value={stage}>{dictionary.options.stages[stage]}</option>
                 ))}
               </Select>
             </Field>
-            <Field label="Budget band">
+            <Field label={dictionary.intake.budgetBand}>
               <Select name="budgetBand" defaultValue="$10k-$25k">
                 {budgetBands.map((band) => (
                   <option key={band} value={band}>{band}</option>
@@ -106,38 +116,38 @@ export function ProjectIntakeForm() {
             </Field>
           </div>
 
-          <Field label="Target markets" description="Pick the first markets you would activate." asLabel={false}>
-            <CheckboxGroup name="targetMarkets" options={markets} />
+          <Field label={dictionary.intake.targetMarkets} description={dictionary.intake.targetMarketsDescription} asLabel={false}>
+            <CheckboxGroup name="targetMarkets" options={markets} labels={dictionary.options.markets} />
           </Field>
 
-          <Field label="Target audiences" description="Pick the buyers, users, or amplifiers the launch must reach." asLabel={false}>
-            <CheckboxGroup name="audiences" options={audiences} />
+          <Field label={dictionary.intake.targetAudiences} description={dictionary.intake.targetAudiencesDescription} asLabel={false}>
+            <CheckboxGroup name="audiences" options={audiences} labels={dictionary.options.audiences} />
           </Field>
 
-          <Field label="Product summary">
+          <Field label={dictionary.intake.productSummary}>
             <Textarea
               name="summary"
-              placeholder="What does the product do, who uses it, and what pain does it solve?"
+              placeholder={dictionary.intake.summaryPlaceholder}
               required
             />
           </Field>
 
-          <Field label="Differentiation or moat">
+          <Field label={dictionary.intake.moat}>
             <Textarea
               name="moat"
-              placeholder="What is technically, strategically, or distributionally hard to copy?"
+              placeholder={dictionary.intake.moatPlaceholder}
               required
             />
           </Field>
 
           <div className="grid gap-4 sm:grid-cols-[1fr_220px]">
-            <Field label="Launch goal">
-              <Input name="launchGoal" placeholder="Recruit 500 technical beta users in 30 days." required />
+            <Field label={dictionary.intake.launchGoal}>
+              <Input name="launchGoal" placeholder={dictionary.intake.launchGoalPlaceholder} required />
             </Field>
-            <Field label="Tone">
+            <Field label={dictionary.intake.tone}>
               <Select name="tone" defaultValue="technical">
                 {tones.map((tone) => (
-                  <option key={tone} value={tone}>{tone}</option>
+                  <option key={tone} value={tone}>{dictionary.options.tones[tone]}</option>
                 ))}
               </Select>
             </Field>
@@ -148,19 +158,17 @@ export function ProjectIntakeForm() {
       <aside className="space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Generated outputs</CardTitle>
-            <CardDescription>The Copilot saves a campaign immediately after generation.</CardDescription>
+            <CardTitle>{dictionary.intake.outputsTitle}</CardTitle>
+            <CardDescription>{dictionary.intake.outputsDescription}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>Positioning and ICP</p>
-            <p>Channel mix and KOL archetypes</p>
-            <p>Five content angles</p>
-            <p>14-day launch calendar</p>
-            <p>Metrics, risks, and markdown export</p>
+            {dictionary.intake.outputs.map((output) => (
+              <p key={output}>{output}</p>
+            ))}
           </CardContent>
         </Card>
         <Button type="submit" className="w-full cursor-pointer" size="lg">
-          Generate GTM plan
+          {dictionary.intake.submit}
         </Button>
       </aside>
     </form>

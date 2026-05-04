@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db/prisma";
 import { generateCampaignPlanWithOptionalAi } from "@/lib/gtm/generate";
 import { campaignPlanToRecord } from "@/lib/gtm/persistence";
+import { getLocale, withLocale } from "@/lib/i18n";
 import { projectIntakeSchema } from "@/lib/validation/project";
 
 function value(formData: FormData, key: string) {
@@ -11,6 +12,7 @@ function value(formData: FormData, key: string) {
 }
 
 export async function createProjectAndCampaign(formData: FormData) {
+  const locale = getLocale(value(formData, "locale"));
   const input = projectIntakeSchema.parse({
     name: value(formData, "name"),
     website: value(formData, "website"),
@@ -51,5 +53,5 @@ export async function createProjectAndCampaign(formData: FormData) {
     });
   });
 
-  redirect(`/campaigns/${campaign.id}`);
+  redirect(withLocale(`/campaigns/${campaign.id}`, locale));
 }

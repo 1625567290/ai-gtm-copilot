@@ -9,9 +9,22 @@ import { Progress } from "@/components/ui/progress";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { campaignRecordToPlan, projectRecordToInput } from "@/lib/gtm/persistence";
+import type { Dictionary, Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-export function CampaignDetail({ campaign }: { campaign: Campaign & { project: Project } }) {
+function formatDay(locale: Locale, label: string, day: number) {
+  return locale === "zh" ? `${label} ${day} 天` : `${label} ${day}`;
+}
+
+export function CampaignDetail({
+  campaign,
+  locale,
+  dictionary
+}: {
+  campaign: Campaign & { project: Project };
+  locale: Locale;
+  dictionary: Dictionary;
+}) {
   const plan = campaignRecordToPlan(campaign);
   const project = projectRecordToInput(campaign.project);
   const updateAction = updateCampaign.bind(null, campaign.id);
@@ -24,25 +37,28 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
             <div>
               <CardTitle className="text-xl">{campaign.name}</CardTitle>
               <CardDescription>
-                {project.category} · {project.stage} · {project.targetMarkets.join(", ")}
+                {dictionary.options.categories[project.category]} · {dictionary.options.stages[project.stage]} ·{" "}
+                {project.targetMarkets.map((market) => dictionary.options.markets[market]).join(", ")}
               </CardDescription>
             </div>
-            <Badge variant="default">{campaign.status}</Badge>
+            <Badge variant="default">
+              {dictionary.options.statuses[campaign.status as keyof typeof dictionary.options.statuses] ?? campaign.status}
+            </Badge>
           </CardHeader>
           <CardContent className="space-y-5">
             <div>
               <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="font-medium">Launch readiness</span>
+                <span className="font-medium">{dictionary.campaign.launchReadiness}</span>
                 <span className="font-semibold">{plan.readinessScore}/100</span>
               </div>
               <Progress value={plan.readinessScore} />
             </div>
             <div className="rounded-lg border border-border bg-secondary/50 p-4">
-              <h2 className="text-sm font-semibold">Positioning</h2>
+              <h2 className="text-sm font-semibold">{dictionary.campaign.positioning}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-700">{plan.positioning}</p>
             </div>
             <div className="rounded-lg border border-border bg-white p-4">
-              <h2 className="text-sm font-semibold">ICP</h2>
+              <h2 className="text-sm font-semibold">{dictionary.campaign.icp}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-700">{plan.icp}</p>
             </div>
           </CardContent>
@@ -51,8 +67,8 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
         <section className="grid gap-6 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Channel Mix</CardTitle>
-              <CardDescription>Priority plays for launch distribution.</CardDescription>
+              <CardTitle>{dictionary.campaign.channelMix}</CardTitle>
+              <CardDescription>{dictionary.campaign.channelDescription}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {plan.channelMix.map((channel) => (
@@ -71,8 +87,8 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
 
           <Card>
             <CardHeader>
-              <CardTitle>KOL Plan</CardTitle>
-              <CardDescription>Archetypes to brief by market and budget mode.</CardDescription>
+              <CardTitle>{dictionary.campaign.kolPlan}</CardTitle>
+              <CardDescription>{dictionary.campaign.kolDescription}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {plan.kolPlan.map((kol) => (
@@ -91,13 +107,13 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
 
         <Card>
           <CardHeader>
-            <CardTitle>Content Angles</CardTitle>
-            <CardDescription>Storylines for founder posts, KOL briefs, media pitches, and community assets.</CardDescription>
+            <CardTitle>{dictionary.campaign.contentAngles}</CardTitle>
+            <CardDescription>{dictionary.campaign.contentDescription}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3 md:grid-cols-2">
             {plan.contentAngles.map((angle, index) => (
               <div key={angle} className="rounded-md border border-border bg-white p-3 text-sm leading-6">
-                <span className="mr-2 text-xs font-semibold text-primary">Angle {index + 1}</span>
+                <span className="mr-2 text-xs font-semibold text-primary">{dictionary.campaign.angle} {index + 1}</span>
                 {angle}
               </div>
             ))}
@@ -106,15 +122,15 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
 
         <Card>
           <CardHeader>
-            <CardTitle>14-Day Launch Calendar</CardTitle>
-            <CardDescription>Operator-ready sequence from narrative setup to conversion proof.</CardDescription>
+            <CardTitle>{dictionary.campaign.calendar}</CardTitle>
+            <CardDescription>{dictionary.campaign.calendarDescription}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-3 md:grid-cols-2">
               {plan.launchCalendar.map((item) => (
                 <div key={item.day} className="rounded-md border border-border bg-white p-3">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-sm font-semibold">Day {item.day}</h3>
+                    <h3 className="text-sm font-semibold">{formatDay(locale, dictionary.campaign.day, item.day)}</h3>
                     <Badge variant="secondary">{item.owner}</Badge>
                   </div>
                   <p className="mt-1 text-xs font-medium text-muted-foreground">{item.focus}</p>
@@ -129,35 +145,35 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
       <aside className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Campaign Controls</CardTitle>
-            <CardDescription>Update operating state and internal notes.</CardDescription>
+            <CardTitle>{dictionary.campaign.controls}</CardTitle>
+            <CardDescription>{dictionary.campaign.controlsDescription}</CardDescription>
           </CardHeader>
           <CardContent>
             <form action={updateAction} className="space-y-4">
               <label className="grid gap-2 text-sm font-medium">
-                Status
+                {dictionary.campaign.status}
                 <Select name="status" defaultValue={campaign.status}>
-                  <option value="draft">draft</option>
-                  <option value="active">active</option>
-                  <option value="paused">paused</option>
-                  <option value="completed">completed</option>
+                  <option value="draft">{dictionary.options.statuses.draft}</option>
+                  <option value="active">{dictionary.options.statuses.active}</option>
+                  <option value="paused">{dictionary.options.statuses.paused}</option>
+                  <option value="completed">{dictionary.options.statuses.completed}</option>
                 </Select>
               </label>
               <label className="grid gap-2 text-sm font-medium">
-                Priority
+                {dictionary.campaign.priority}
                 <Select name="priority" defaultValue={campaign.priority}>
-                  <option value="low">low</option>
-                  <option value="medium">medium</option>
-                  <option value="high">high</option>
+                  <option value="low">{dictionary.options.priorities.low}</option>
+                  <option value="medium">{dictionary.options.priorities.medium}</option>
+                  <option value="high">{dictionary.options.priorities.high}</option>
                 </Select>
               </label>
               <label className="grid gap-2 text-sm font-medium">
-                Internal notes
-                <Textarea name="notes" defaultValue={campaign.notes} placeholder="Add operator notes..." />
+                {dictionary.campaign.notes}
+                <Textarea name="notes" defaultValue={campaign.notes} placeholder={dictionary.campaign.notesPlaceholder} />
               </label>
               <Button type="submit" className="w-full cursor-pointer">
                 <PenLine className="h-4 w-4" aria-hidden="true" />
-                Save changes
+                {dictionary.common.saveChanges}
               </Button>
             </form>
           </CardContent>
@@ -165,8 +181,8 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
 
         <Card>
           <CardHeader>
-            <CardTitle>Export Brief</CardTitle>
-            <CardDescription>Download a markdown launch brief for sharing or deck prep.</CardDescription>
+            <CardTitle>{dictionary.campaign.exportBrief}</CardTitle>
+            <CardDescription>{dictionary.campaign.exportDescription}</CardDescription>
           </CardHeader>
           <CardContent>
             <Link
@@ -174,15 +190,15 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
               className={cn(buttonVariants({ variant: "accent" }), "w-full cursor-pointer")}
             >
               <Download className="h-4 w-4" aria-hidden="true" />
-              Export markdown
+              {dictionary.campaign.exportMarkdown}
             </Link>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Metrics</CardTitle>
-            <CardDescription>Recommended success signals.</CardDescription>
+            <CardTitle>{dictionary.campaign.metrics}</CardTitle>
+            <CardDescription>{dictionary.campaign.metricsDescription}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             {plan.successMetrics.map((metric) => (
@@ -193,7 +209,7 @@ export function CampaignDetail({ campaign }: { campaign: Campaign & { project: P
 
         <Card>
           <CardHeader>
-            <CardTitle>Risks</CardTitle>
+            <CardTitle>{dictionary.campaign.risks}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {plan.risks.map((risk) => (

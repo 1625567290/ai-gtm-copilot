@@ -32,6 +32,10 @@ Open `http://localhost:3000`.
 4. Export the markdown brief.
 5. Create a new GTM project from `/projects/new` and generate another campaign.
 
+## Languages
+
+The product UI supports English, Chinese, and Japanese. Use the in-app language switcher or visit `/?lang=en`, `/?lang=zh`, or `/?lang=ja`.
+
 ## Optional AI Mode
 
 The app defaults to the deterministic local engine, which is best for stable interviews.

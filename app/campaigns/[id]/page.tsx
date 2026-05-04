@@ -2,9 +2,18 @@ import { notFound } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { CampaignDetail } from "@/components/campaign-detail";
 import { prisma } from "@/lib/db/prisma";
+import { getDictionary, getLocale } from "@/lib/i18n";
 
-export default async function CampaignPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function CampaignPage({
+  params,
+  searchParams
+}: {
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ lang?: string | string[] }>;
+}) {
   const { id } = await params;
+  const locale = getLocale((await searchParams)?.lang);
+  const dictionary = getDictionary(locale);
   const campaign = await prisma.campaign.findUnique({
     where: { id },
     include: { project: true }
@@ -15,8 +24,14 @@ export default async function CampaignPage({ params }: { params: Promise<{ id: s
   }
 
   return (
-    <AppShell title={campaign.project.name} eyebrow="Campaign strategy">
-      <CampaignDetail campaign={campaign} />
+    <AppShell
+      title={campaign.project.name}
+      eyebrow={dictionary.campaign.eyebrow}
+      locale={locale}
+      dictionary={dictionary}
+      currentPath={`/campaigns/${campaign.id}`}
+    >
+      <CampaignDetail campaign={campaign} locale={locale} dictionary={dictionary} />
     </AppShell>
   );
 }
