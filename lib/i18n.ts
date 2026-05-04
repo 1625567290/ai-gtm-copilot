@@ -63,6 +63,11 @@ const optionLabels = {
       low: "low",
       medium: "medium",
       high: "high"
+    },
+    outputLocales: {
+      en: "English",
+      zh: "Chinese",
+      ja: "Japanese"
     }
   },
   zh: {
@@ -118,6 +123,11 @@ const optionLabels = {
       low: "低",
       medium: "中",
       high: "高"
+    },
+    outputLocales: {
+      en: "英文",
+      zh: "中文",
+      ja: "日文"
     }
   },
   ja: {
@@ -173,6 +183,11 @@ const optionLabels = {
       low: "低",
       medium: "中",
       high: "高"
+    },
+    outputLocales: {
+      en: "英語",
+      zh: "中国語",
+      ja: "日本語"
     }
   }
 } as const;
@@ -184,6 +199,7 @@ export const dictionaries = {
       tagline: "Launch strategy workspace",
       navDashboard: "Dashboard",
       navNewProject: "New GTM Project",
+      navDemoGuide: "Demo Guide",
       mobileDashboard: "Dashboard",
       jeFit: "JE Labs fit",
       jeFitDescription:
@@ -225,6 +241,7 @@ export const dictionaries = {
       category: "Category",
       stage: "Stage",
       budgetBand: "Budget band",
+      outputLanguage: "Brief language",
       targetMarkets: "Target markets",
       targetMarketsDescription: "Pick the first markets you would activate.",
       targetAudiences: "Target audiences",
@@ -275,6 +292,33 @@ export const dictionaries = {
       metricsDescription: "Recommended success signals.",
       risks: "Risks"
     },
+    demo: {
+      eyebrow: "Interview presentation",
+      title: "Demo Guide",
+      openingTitle: "Two-minute opening",
+      opening:
+        "AI GTM Copilot productizes a JE Labs-style launch workflow: capture AI product context, generate positioning, channel strategy, KOL plan, content angles, a 14-day calendar, and export a shareable GTM brief.",
+      routeTitle: "Recommended walkthrough",
+      route: [
+        "Start on the dashboard and explain that saved campaigns are persisted in SQLite.",
+        "Open VectorForge to show the English AI Infra launch plan.",
+        "Open MossBench to show a Chinese GTM brief for Asia-focused developer growth.",
+        "Create a new project and switch the brief language between English, Chinese, and Japanese.",
+        "Export markdown to show the work can become a client-facing brief or deck input."
+      ],
+      signalsTitle: "Signals for JE Labs",
+      signals: [
+        "Product thinking: turns agency GTM work into a repeatable operator tool.",
+        "Engineering: full-stack Next.js, Prisma, Server Actions, tests, and seed data.",
+        "Growth fluency: covers ICP, KOL, channels, content, calendar, metrics, and risks.",
+        "Global readiness: UI and generated briefs support English, Chinese, and Japanese."
+      ],
+      closeTitle: "Closing line",
+      close:
+        "This MVP shows how a Marketing Engineer can convert GTM playbooks into software: faster strategy drafts, better campaign structure, and reusable launch intelligence.",
+      openDashboard: "Open dashboard",
+      createProject: "Create project"
+    },
     options: optionLabels.en
   },
   zh: {
@@ -283,6 +327,7 @@ export const dictionaries = {
       tagline: "发布策略工作台",
       navDashboard: "仪表盘",
       navNewProject: "新建 GTM 项目",
+      navDemoGuide: "展示指南",
       mobileDashboard: "仪表盘",
       jeFit: "适配 JE Labs",
       jeFitDescription: "把策略、KOL 规划、创始人叙事和发布执行产品化为一条运营工作流。",
@@ -322,6 +367,7 @@ export const dictionaries = {
       category: "类别",
       stage: "阶段",
       budgetBand: "预算区间",
+      outputLanguage: "Brief 语言",
       targetMarkets: "目标市场",
       targetMarketsDescription: "选择第一批要启动的市场。",
       targetAudiences: "目标受众",
@@ -366,6 +412,33 @@ export const dictionaries = {
       metricsDescription: "建议关注的成功信号。",
       risks: "风险"
     },
+    demo: {
+      eyebrow: "面试展示",
+      title: "展示指南",
+      openingTitle: "两分钟开场",
+      opening:
+        "AI GTM Copilot 把 JE Labs 式发布工作流产品化：输入 AI 产品上下文，生成定位、渠道策略、KOL 计划、内容角度、14 天日历，并导出可分享的 GTM brief。",
+      routeTitle: "推荐讲解路线",
+      route: [
+        "从 dashboard 开始，说明 campaign 会持久化保存到 SQLite。",
+        "打开 VectorForge，展示英文 AI Infra 发布计划。",
+        "打开 MossBench，展示面向亚洲开发者增长的中文 GTM brief。",
+        "新建项目，并切换 brief 语言为英文、中文或日文。",
+        "导出 Markdown，说明它可以继续变成客户 brief 或 deck 输入。"
+      ],
+      signalsTitle: "JE Labs 相关信号",
+      signals: [
+        "产品判断：把 agency 的 GTM 工作变成可重复的运营工具。",
+        "工程能力：Next.js 全栈、Prisma、Server Actions、测试和 seed 数据。",
+        "增长理解：覆盖 ICP、KOL、渠道、内容、日历、指标和风险。",
+        "全球化准备：UI 和生成 brief 支持英文、中文、日文。"
+      ],
+      closeTitle: "收尾表达",
+      close:
+        "这个 MVP 展示了 Marketing Engineer 如何把 GTM playbook 软件化：更快产出策略初稿，更好组织 campaign，并沉淀可复用的发布 intelligence。",
+      openDashboard: "打开仪表盘",
+      createProject: "新建项目"
+    },
     options: optionLabels.zh
   },
   ja: {
@@ -374,6 +447,7 @@ export const dictionaries = {
       tagline: "ローンチ戦略ワークスペース",
       navDashboard: "ダッシュボード",
       navNewProject: "新規 GTM プロジェクト",
+      navDemoGuide: "デモガイド",
       mobileDashboard: "ダッシュボード",
       jeFit: "JE Labs との適合性",
       jeFitDescription:
@@ -414,6 +488,7 @@ export const dictionaries = {
       category: "カテゴリ",
       stage: "ステージ",
       budgetBand: "予算帯",
+      outputLanguage: "Brief 言語",
       targetMarkets: "対象市場",
       targetMarketsDescription: "最初に展開する市場を選択します。",
       targetAudiences: "対象オーディエンス",
@@ -457,6 +532,33 @@ export const dictionaries = {
       metrics: "指標",
       metricsDescription: "推奨される成功シグナル。",
       risks: "リスク"
+    },
+    demo: {
+      eyebrow: "面接プレゼンテーション",
+      title: "デモガイド",
+      openingTitle: "2 分間の導入",
+      opening:
+        "AI GTM Copilot は JE Labs 型のローンチワークフローをプロダクト化します。AI プロダクトの文脈を入力し、ポジショニング、チャネル戦略、KOL 計画、コンテンツ角度、14 日間カレンダー、共有可能な GTM brief を生成します。",
+      routeTitle: "おすすめのデモ順序",
+      route: [
+        "dashboard から始め、campaign が SQLite に保存されることを説明します。",
+        "VectorForge を開き、英語の AI Infra ローンチ計画を見せます。",
+        "MossBench を開き、アジア向け開発者成長の中国語 GTM brief を見せます。",
+        "新規プロジェクトを作成し、brief 言語を英語・中国語・日本語に切り替えます。",
+        "Markdown をエクスポートし、client brief や deck の入力にできることを示します。"
+      ],
+      signalsTitle: "JE Labs への適合シグナル",
+      signals: [
+        "プロダクト思考：agency の GTM 業務を再利用可能な運用ツールに変換。",
+        "エンジニアリング：Next.js full-stack、Prisma、Server Actions、テスト、seed データ。",
+        "Growth 理解：ICP、KOL、チャネル、コンテンツ、カレンダー、指標、リスクを網羅。",
+        "グローバル対応：UI と生成 brief が英語・中国語・日本語に対応。"
+      ],
+      closeTitle: "締めの一言",
+      close:
+        "この MVP は、Marketing Engineer が GTM playbook をソフトウェア化し、より速い戦略ドラフト、より構造化された campaign、再利用可能な launch intelligence を作れることを示します。",
+      openDashboard: "ダッシュボードを開く",
+      createProject: "プロジェクトを作成"
     },
     options: optionLabels.ja
   }

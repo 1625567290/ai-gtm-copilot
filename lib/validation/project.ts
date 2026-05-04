@@ -55,6 +55,8 @@ export const tones = [
   "community-native"
 ] as const;
 
+export const outputLocales = ["en", "zh", "ja"] as const;
+
 export const projectIntakeSchema = z.object({
   name: z.string().trim().min(1, "Product name is required.").max(80),
   website: z
@@ -73,7 +75,8 @@ export const projectIntakeSchema = z.object({
   moat: z.string().trim().min(10, "Differentiation should be at least 10 characters.").max(600),
   launchGoal: z.string().trim().min(10, "Launch goal should be at least 10 characters.").max(400),
   budgetBand: z.enum(budgetBands),
-  tone: z.enum(tones)
+  tone: z.enum(tones),
+  outputLocale: z.enum(outputLocales).default("en")
 });
 
 export type ProjectIntakeInput = z.infer<typeof projectIntakeSchema>;

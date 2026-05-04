@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BarChart3, BrainCircuit, FilePlus2, Rocket } from "lucide-react";
+import { BarChart3, BrainCircuit, FilePlus2, Presentation, Rocket } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { type Dictionary, type Locale, localeLabels, locales, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,8 @@ export function AppShell({
 }) {
   const navItems = [
     { href: "/", label: dictionary.app.navDashboard, icon: BarChart3 },
-    { href: "/projects/new", label: dictionary.app.navNewProject, icon: FilePlus2 }
+    { href: "/projects/new", label: dictionary.app.navNewProject, icon: FilePlus2 },
+    { href: "/demo", label: dictionary.app.navDemoGuide, icon: Presentation }
   ];
 
   return (
@@ -44,7 +45,10 @@ export function AppShell({
             <Link
               key={item.href}
               href={withLocale(item.href, locale)}
-              className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className={cn(
+                "flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                currentPath === item.href ? "bg-secondary text-foreground" : "text-slate-700"
+              )}
             >
               <item.icon className="h-4 w-4" aria-hidden="true" />
               {item.label}
@@ -73,12 +77,21 @@ export function AppShell({
               <h1 className="mt-1 text-2xl font-semibold tracking-normal text-foreground">{title}</h1>
             </div>
             <div className="flex w-full flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end">
-              <Link
-                href={withLocale("/", locale)}
-                className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "whitespace-nowrap lg:hidden")}
-              >
-                {dictionary.app.mobileDashboard}
-              </Link>
+              <div className="flex flex-wrap items-center gap-1 lg:hidden">
+                {navItems
+                  .filter((item) => item.href === "/" || item.href === "/demo")
+                  .filter((item) => item.href !== currentPath)
+                  .map((item) => (
+                    <Link
+                      key={item.href}
+                      href={withLocale(item.href, locale)}
+                      className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "cursor-pointer whitespace-nowrap")}
+                    >
+                      <item.icon className="h-4 w-4" aria-hidden="true" />
+                      {item.href === "/" ? dictionary.app.mobileDashboard : item.label}
+                    </Link>
+                  ))}
+              </div>
               <div className="flex items-center rounded-md border border-border bg-white p-1" aria-label={dictionary.app.language}>
                 {locales.map((candidate) => (
                   <Link

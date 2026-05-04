@@ -22,19 +22,21 @@ Open `http://localhost:3000`.
 - Deterministic GTM generation that works without an API key.
 - Optional OpenAI-compatible mode with safe local fallback.
 - shadcn/ui-style dashboard components with lucide icons.
+- English, Chinese, and Japanese UI plus localized generated briefs.
+- A `/demo` presentation guide for interview walkthroughs.
 - Vitest coverage for validation, GTM generation, and markdown export.
 
 ## Demo Flow
 
-1. Start on the dashboard and show the seeded VectorForge campaign.
-2. Open the campaign detail page and walk through readiness, positioning, channel mix, KOL plan, content angles, calendar, metrics, and risks.
-3. Edit status, priority, or internal notes.
-4. Export the markdown brief.
-5. Create a new GTM project from `/projects/new` and generate another campaign.
+1. Open `/demo?lang=en`, `/demo?lang=zh`, or `/demo?lang=ja` for the interview talk track.
+2. Start on the dashboard and show the seeded VectorForge campaign.
+3. Open MossBench to show a Chinese GTM brief for Asia-focused developer growth.
+4. Create a new GTM project from `/projects/new`, switch the brief language, and generate another campaign.
+5. Export the markdown brief as a client-facing GTM document or deck input.
 
 ## Languages
 
-The product UI supports English, Chinese, and Japanese. Use the in-app language switcher or visit `/?lang=en`, `/?lang=zh`, or `/?lang=ja`.
+The product UI supports English, Chinese, and Japanese. Use the in-app language switcher or visit `/?lang=en`, `/?lang=zh`, or `/?lang=ja`. The intake form also includes a brief-language selector so generated GTM plans and markdown exports can be produced in English, Chinese, or Japanese.
 
 ## Optional AI Mode
 

@@ -22,7 +22,8 @@ export function projectRecordToInput(project: Project): ProjectIntakeInput {
     moat: project.moat,
     launchGoal: project.launchGoal,
     budgetBand: project.budgetBand as ProjectIntakeInput["budgetBand"],
-    tone: project.tone as ProjectIntakeInput["tone"]
+    tone: project.tone as ProjectIntakeInput["tone"],
+    outputLocale: project.outputLocale as ProjectIntakeInput["outputLocale"]
   };
 }
 

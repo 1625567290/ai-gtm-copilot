@@ -24,7 +24,8 @@ export async function createProjectAndCampaign(formData: FormData) {
     moat: value(formData, "moat"),
     launchGoal: value(formData, "launchGoal"),
     budgetBand: value(formData, "budgetBand"),
-    tone: value(formData, "tone")
+    tone: value(formData, "tone"),
+    outputLocale: value(formData, "outputLocale") || undefined
   });
 
   const plan = await generateCampaignPlanWithOptionalAi(input);
@@ -41,7 +42,8 @@ export async function createProjectAndCampaign(formData: FormData) {
         moat: input.moat,
         launchGoal: input.launchGoal,
         budgetBand: input.budgetBand,
-        tone: input.tone
+        tone: input.tone,
+        outputLocale: input.outputLocale
       }
     });
 

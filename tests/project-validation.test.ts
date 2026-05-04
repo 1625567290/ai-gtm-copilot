@@ -12,7 +12,8 @@ const validIntake = {
   moat: "Hybrid memory compression and developer-first observability.",
   launchGoal: "Recruit 500 technical beta users in 30 days.",
   budgetBand: "$10k-$25k",
-  tone: "technical"
+  tone: "technical",
+  outputLocale: "en"
 };
 
 describe("projectIntakeSchema", () => {
@@ -22,6 +23,15 @@ describe("projectIntakeSchema", () => {
     expect(parsed.name).toBe("VectorForge");
     expect(parsed.targetMarkets).toEqual(["US", "Japan"]);
     expect(parsed.audiences).toContain("developers");
+    expect(parsed.outputLocale).toBe("en");
+  });
+
+  it("defaults generated briefs to English", () => {
+    const { outputLocale, ...legacyIntake } = validIntake;
+    const parsed = projectIntakeSchema.parse(legacyIntake);
+
+    expect(outputLocale).toBe("en");
+    expect(parsed.outputLocale).toBe("en");
   });
 
   it("rejects a missing product name", () => {

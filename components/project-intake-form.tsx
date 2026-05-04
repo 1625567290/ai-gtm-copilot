@@ -11,6 +11,7 @@ import {
   budgetBands,
   categories,
   markets,
+  outputLocales,
   stages,
   tones
 } from "@/lib/validation/project";
@@ -111,6 +112,18 @@ export function ProjectIntakeForm({
               <Select name="budgetBand" defaultValue="$10k-$25k">
                 {budgetBands.map((band) => (
                   <option key={band} value={band}>{band}</option>
+                ))}
+              </Select>
+            </Field>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-[1fr_220px]">
+            <Field label={dictionary.intake.outputLanguage}>
+              <Select name="outputLocale" defaultValue={locale}>
+                {outputLocales.map((outputLocale) => (
+                  <option key={outputLocale} value={outputLocale}>
+                    {dictionary.options.outputLocales[outputLocale]}
+                  </option>
                 ))}
               </Select>
             </Field>

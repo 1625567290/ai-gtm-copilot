@@ -13,7 +13,8 @@ const aiInfraProject: ProjectIntakeInput = {
   moat: "Hybrid memory compression and developer-first observability.",
   launchGoal: "Recruit 500 technical beta users in 30 days.",
   budgetBand: "$10k-$25k",
-  tone: "technical"
+  tone: "technical",
+  outputLocale: "en"
 };
 
 describe("generateCampaignPlan", () => {
@@ -57,5 +58,29 @@ describe("generateCampaignPlan", () => {
 
     expect(plan.name).toBe("VectorForge GTM Launch Plan");
     expect(plan.channelMix.map((channel) => channel.name)).toContain("Developer communities");
+  });
+
+  it("can generate a Chinese launch brief", () => {
+    const plan = generateCampaignPlan({
+      ...aiInfraProject,
+      outputLocale: "zh"
+    });
+
+    expect(plan.name).toBe("VectorForge GTM 发布计划");
+    expect(plan.positioning).toContain("面向 developers, AI researchers");
+    expect(plan.launchCalendar[0]?.focus).toBe("叙事铺垫");
+    expect(plan.successMetrics).toContain("合格 beta 注册数");
+  });
+
+  it("can generate a Japanese launch brief", () => {
+    const plan = generateCampaignPlan({
+      ...aiInfraProject,
+      outputLocale: "ja"
+    });
+
+    expect(plan.name).toBe("VectorForge GTM ローンチ計画");
+    expect(plan.positioning).toContain("developers, AI researchers 向け");
+    expect(plan.launchCalendar[0]?.focus).toBe("ナラティブ設計");
+    expect(plan.risks[0]).toContain("ナラティブ");
   });
 });
