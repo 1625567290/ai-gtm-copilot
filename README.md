@@ -70,6 +70,8 @@ Use Supabase Postgres as the production database and Vercel as the Next.js host.
 4. Run `npm run db:push` and `npm run db:seed` once to prepare demo data.
 5. Import the repo into Vercel and deploy.
 
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` are optional for future Supabase SDK usage. They do not replace the Prisma `DATABASE_URL`.
+
 Detailed steps are in `docs/deploy-supabase-vercel.md`.
 
 ## Verification

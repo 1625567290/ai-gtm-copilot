@@ -23,6 +23,15 @@ DATABASE_URL="postgresql://postgres:<password>@db.uuogaolhpxwgptmkagbb.supabase.
 
 Do not commit either real value. Store it only in local `.env` and Vercel Environment Variables.
 
+Optional Supabase SDK variables:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL="https://uuogaolhpxwgptmkagbb.supabase.co"
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="sb_publishable_<key>"
+```
+
+These are safe to expose in the browser, but this app currently uses Prisma for database access. They do not replace `DATABASE_URL`.
+
 ## 2. Prepare The Database
 
 Run these locally after putting the Supabase `DATABASE_URL` in `.env`:
