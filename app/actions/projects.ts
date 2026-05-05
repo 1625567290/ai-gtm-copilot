@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 import { generateCampaignPlanWithOptionalAi } from "@/lib/gtm/generate";
 import { campaignPlanToRecord } from "@/lib/gtm/persistence";
@@ -29,6 +30,7 @@ export async function createProjectAndCampaign(formData: FormData) {
   });
 
   const plan = await generateCampaignPlanWithOptionalAi(input);
+  await ensureDemoDatabase();
   const campaign = await prisma.$transaction(async (tx) => {
     const project = await tx.project.create({
       data: {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 import { campaignToMarkdown } from "@/lib/gtm/export";
 import { campaignRecordToPlan, projectRecordToInput } from "@/lib/gtm/persistence";
@@ -8,6 +9,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+  await ensureDemoDatabase();
   const campaign = await prisma.campaign.findUnique({
     where: { id },
     include: { project: true }

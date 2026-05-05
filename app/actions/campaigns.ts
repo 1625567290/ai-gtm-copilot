@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 
 const campaignUpdateSchema = z.object({
@@ -17,6 +18,7 @@ export async function updateCampaign(campaignId: string, formData: FormData) {
     notes: String(formData.get("notes") ?? "")
   });
 
+  await ensureDemoDatabase();
   await prisma.campaign.update({
     where: { id: campaignId },
     data: input

@@ -15,6 +15,7 @@ import { AppShell } from "@/components/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 import { getDictionary, getLocale, localeLabels, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,7 @@ export default async function DemoGuidePage({
 }) {
   const locale = getLocale((await searchParams)?.lang);
   const dictionary = getDictionary(locale);
+  await ensureDemoDatabase();
   const samples = await prisma.campaign.findMany({
     include: { project: true },
     orderBy: { createdAt: "asc" },

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 import { campaignRecordToPlan, projectRecordToInput } from "@/lib/gtm/persistence";
 import { buildSocialListeningRadar, type SocialSignal } from "@/lib/gtm/workbenches";
@@ -33,6 +34,7 @@ export default async function SocialRadarPage({
   const params = await searchParams;
   const locale = getLocale(params?.lang);
   const dictionary = getDictionary(locale);
+  await ensureDemoDatabase();
   const campaigns: CampaignWithProject[] = await prisma.campaign.findMany({
     include: { project: true },
     orderBy: { updatedAt: "desc" },

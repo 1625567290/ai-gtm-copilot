@@ -3,6 +3,7 @@ import { Plus } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { DashboardContent } from "@/components/dashboard-content";
 import { buttonVariants } from "@/components/ui/button";
+import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 import { getDictionary, getLocale, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ export default async function DashboardPage({
 }) {
   const locale = getLocale((await searchParams)?.lang);
   const dictionary = getDictionary(locale);
+  await ensureDemoDatabase();
   const [projectCount, campaigns] = await Promise.all([
     prisma.project.count(),
     prisma.campaign.findMany({
