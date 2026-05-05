@@ -1,5 +1,16 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, FilePlus2, LayoutDashboard, Route, UsersRound } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarDays,
+  Calculator,
+  CheckCircle2,
+  FilePlus2,
+  LayoutDashboard,
+  PenLine,
+  RadioTower,
+  Route,
+  UsersRound
+} from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -56,7 +67,7 @@ export default async function DemoGuidePage({
                 {dictionary.demo.opening}
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-3 pt-5 lg:grid-cols-3">
+            <CardContent className="grid gap-3 pt-5 md:grid-cols-2 xl:grid-cols-3">
               <Link
                 href={withLocale("/", locale)}
                 className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
@@ -74,6 +85,46 @@ export default async function DemoGuidePage({
                 <span className="inline-flex items-center gap-2">
                   <UsersRound className="h-4 w-4" aria-hidden="true" />
                   {dictionary.app.navKolStudio}
+                </span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href={withLocale("/pricer", locale)}
+                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <Calculator className="h-4 w-4" aria-hidden="true" />
+                  {dictionary.app.navPricer}
+                </span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href={withLocale("/story", locale)}
+                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <PenLine className="h-4 w-4" aria-hidden="true" />
+                  {dictionary.app.navStory}
+                </span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href={withLocale("/radar", locale)}
+                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <RadioTower className="h-4 w-4" aria-hidden="true" />
+                  {dictionary.app.navRadar}
+                </span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href={withLocale("/calendar", locale)}
+                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                  {dictionary.app.navCalendar}
                 </span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>

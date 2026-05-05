@@ -1,6 +1,6 @@
 import type { Campaign, Project } from "@prisma/client";
 import Link from "next/link";
-import { Download, PenLine } from "lucide-react";
+import { Calculator, CalendarDays, Download, PenLine, RadioTower, UsersRound } from "lucide-react";
 import { updateCampaign } from "@/app/actions/campaigns";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { campaignRecordToPlan, projectRecordToInput } from "@/lib/gtm/persistence";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import { type Dictionary, type Locale, withLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 function formatDay(locale: Locale, label: string, day: number) {
@@ -28,6 +28,13 @@ export function CampaignDetail({
   const plan = campaignRecordToPlan(campaign);
   const project = projectRecordToInput(campaign.project);
   const updateAction = updateCampaign.bind(null, campaign.id);
+  const workbenchLinks = [
+    { href: "/kol", label: dictionary.app.navKolStudio, icon: UsersRound },
+    { href: "/pricer", label: dictionary.app.navPricer, icon: Calculator },
+    { href: "/story", label: dictionary.app.navStory, icon: PenLine },
+    { href: "/radar", label: dictionary.app.navRadar, icon: RadioTower },
+    { href: "/calendar", label: dictionary.app.navCalendar, icon: CalendarDays }
+  ];
 
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
@@ -192,6 +199,27 @@ export function CampaignDetail({
               <Download className="h-4 w-4" aria-hidden="true" />
               {dictionary.campaign.exportMarkdown}
             </Link>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{dictionary.campaign.growthWorkbenches}</CardTitle>
+            <CardDescription>{dictionary.campaign.growthWorkbenchesDescription}</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-2">
+            {workbenchLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={withLocale(`${item.href}?campaignId=${campaign.id}`, locale)}
+                className="flex cursor-pointer items-center justify-between rounded-md border border-border bg-white px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <item.icon className="h-4 w-4 text-primary" aria-hidden="true" />
+                  {item.label}
+                </span>
+              </Link>
+            ))}
           </CardContent>
         </Card>
 

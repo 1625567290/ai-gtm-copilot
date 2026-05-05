@@ -24,6 +24,10 @@ Open `http://localhost:3000`.
 - shadcn/ui-style dashboard components with lucide icons.
 - English, Chinese, and Japanese UI plus localized generated briefs.
 - KOL Market Fit scoring and copy-ready activation briefs.
+- KOL Pricer for budget ranges, expected exposure, deliverables, and CPM.
+- Founder Storytelling Studio for founder narrative, media pitch, X thread, and community copy.
+- Social Listening Radar for market signals and recommended content angles.
+- Campaign Calendar that converts the 14-day launch plan into operator-ready tasks.
 - A `/demo` presentation guide for interview walkthroughs.
 - Vitest coverage for validation, GTM generation, and markdown export.
 
@@ -33,8 +37,9 @@ Open `http://localhost:3000`.
 2. Start on the dashboard and show the seeded VectorForge campaign.
 3. Open MossBench to show a Chinese GTM brief for Asia-focused developer growth.
 4. Open `/kol` to show KOL market scoring, recommended archetypes, and copy-ready activation briefs.
-5. Create a new GTM project from `/projects/new`, switch the brief language, and generate another campaign.
-6. Export the markdown brief as a client-facing GTM document or deck input.
+5. Open `/pricer`, `/story`, `/radar`, and `/calendar` to show budget, narrative, market intelligence, and execution workflows.
+6. Create a new GTM project from `/projects/new`, switch the brief language, and generate another campaign.
+7. Export the markdown brief as a client-facing GTM document or deck input.
 
 ## Languages
 

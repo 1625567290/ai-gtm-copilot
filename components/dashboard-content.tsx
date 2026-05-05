@@ -1,6 +1,6 @@
 import type { Campaign, Project } from "@prisma/client";
 import Link from "next/link";
-import { ArrowUpRight, Gauge, Layers3, Plus, Target } from "lucide-react";
+import { ArrowUpRight, Calculator, CalendarDays, Gauge, Layers3, PenLine, Plus, RadioTower, Target, UsersRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,6 +32,38 @@ export function DashboardContent({
   dictionary: Dictionary;
 }) {
   const activeCount = campaigns.filter((campaign) => campaign.status === "active").length;
+  const workbenches = [
+    {
+      href: "/kol",
+      label: dictionary.app.navKolStudio,
+      description: dictionary.dashboard.workbenchDescriptions.kol,
+      icon: UsersRound
+    },
+    {
+      href: "/pricer",
+      label: dictionary.app.navPricer,
+      description: dictionary.dashboard.workbenchDescriptions.pricer,
+      icon: Calculator
+    },
+    {
+      href: "/story",
+      label: dictionary.app.navStory,
+      description: dictionary.dashboard.workbenchDescriptions.story,
+      icon: PenLine
+    },
+    {
+      href: "/radar",
+      label: dictionary.app.navRadar,
+      description: dictionary.dashboard.workbenchDescriptions.radar,
+      icon: RadioTower
+    },
+    {
+      href: "/calendar",
+      label: dictionary.app.navCalendar,
+      description: dictionary.dashboard.workbenchDescriptions.calendar,
+      icon: CalendarDays
+    }
+  ];
 
   return (
     <div className="space-y-6">
@@ -66,6 +98,31 @@ export function DashboardContent({
             <Progress value={averageScore} className="mt-3" />
           </CardContent>
         </Card>
+      </section>
+
+      <section className="space-y-3">
+        <div>
+          <h2 className="text-base font-semibold">{dictionary.dashboard.workbenchesTitle}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{dictionary.dashboard.workbenchesDescription}</p>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+          {workbenches.map((workbench) => (
+            <Link
+              key={workbench.href}
+              href={withLocale(workbench.href, locale)}
+              className="group block cursor-pointer rounded-lg border border-border bg-white p-4 transition-colors duration-200 hover:border-primary/40 hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-secondary text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-primary-foreground">
+                  <workbench.icon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-colors duration-200 group-hover:text-primary" aria-hidden="true" />
+              </div>
+              <h3 className="mt-3 text-sm font-semibold">{workbench.label}</h3>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">{workbench.description}</p>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <Card>
