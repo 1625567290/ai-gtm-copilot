@@ -7,6 +7,7 @@ A full-stack Next.js product for turning an AI product brief into a saved GTM la
 ```bash
 npm install
 cp .env.example .env
+# Fill DATABASE_URL with your Supabase Postgres Session Pooler URL.
 npm run db:push
 npm run db:seed
 npm run dev
@@ -17,7 +18,7 @@ Open `http://localhost:3000`.
 ## What It Demonstrates
 
 - Next.js App Router full-stack workflow.
-- Prisma + SQLite persistence.
+- Prisma + Supabase Postgres persistence.
 - Server actions for creating projects and updating campaigns.
 - Deterministic GTM generation that works without an API key.
 - Optional OpenAI-compatible mode with safe local fallback.
@@ -58,6 +59,18 @@ OPENAI_MODEL="gpt-4o-mini"
 ```
 
 If the AI call fails, the app falls back to the local engine.
+
+## Supabase + Vercel Deployment
+
+Use Supabase Postgres as the production database and Vercel as the Next.js host.
+
+1. Create a free Supabase project.
+2. Copy the Session Pooler Postgres connection string from Supabase for Vercel. The direct connection string can be used locally, but the pooler is safer for serverless demos.
+3. Set `DATABASE_URL` in `.env` locally and in Vercel environment variables.
+4. Run `npm run db:push` and `npm run db:seed` once to prepare demo data.
+5. Import the repo into Vercel and deploy.
+
+Detailed steps are in `docs/deploy-supabase-vercel.md`.
 
 ## Verification
 
