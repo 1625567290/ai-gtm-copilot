@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db/prisma";
 import { generateCampaignPlanWithOptionalAi } from "@/lib/gtm/generate";
 import { campaignPlanToRecord } from "@/lib/gtm/persistence";
 import { getLocale, withLocale } from "@/lib/i18n";
+import { analysisResultPath } from "@/lib/navigation";
 import { projectIntakeSchema } from "@/lib/validation/project";
 
 function value(formData: FormData, key: string) {
@@ -62,5 +63,5 @@ export async function createProjectAndCampaign(formData: FormData) {
     });
   });
 
-  redirect(withLocale(`/campaigns/${campaign.id}`, locale));
+  redirect(analysisResultPath(campaign.id, locale));
 }

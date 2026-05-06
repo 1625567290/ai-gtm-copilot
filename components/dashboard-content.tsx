@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { type Dictionary, type Locale, withLocale } from "@/lib/i18n";
+import { analysisResultPath } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 type CampaignWithProject = Campaign & { project: Project };
@@ -209,7 +210,7 @@ export function DashboardContent({
                     </TableCell>
                     <TableCell className="text-right">
                       <Link
-                        href={withLocale(`/campaigns/${campaign.id}`, locale)}
+                        href={analysisResultPath(campaign.id, locale)}
                         className="inline-flex cursor-pointer items-center gap-1 text-sm font-medium text-primary hover:text-primary/80"
                       >
                         {dictionary.common.view}

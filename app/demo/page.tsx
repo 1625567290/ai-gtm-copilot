@@ -16,6 +16,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ensureDemoDatabase } from "@/lib/db/bootstrap";
 import { prisma } from "@/lib/db/prisma";
 import { getDictionary, getLocale, localeLabels, withLocale } from "@/lib/i18n";
+import { analysisResultPath } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 export default async function DemoGuidePage({
@@ -130,7 +131,7 @@ export default async function DemoGuidePage({
               {samples.map((sample) => (
                 <Link
                   key={sample.id}
-                  href={withLocale(`/campaigns/${sample.id}`, locale)}
+                  href={analysisResultPath(sample.id, locale)}
                   className="block cursor-pointer rounded-md border border-border bg-white p-3 transition-colors duration-200 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <div className="flex items-center justify-between gap-3">
