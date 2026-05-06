@@ -1,6 +1,6 @@
-# AI GTM Copilot
+# AI Product Signal Radar
 
-A full-stack Next.js product for turning an AI product brief into a saved GTM launch campaign. It is designed as a Marketing Engineer interview artifact for JE Labs-style work: product intake, positioning, KOL/channel planning, content angles, a 14-day launch calendar, campaign editing, and markdown export.
+A focused full-stack Next.js product for turning AI product market signals into GTM actions. It is designed as a Marketing Engineer interview artifact for JE Labs-style work: social listening-style signal analysis, hot topics, key voices, action queue, KOL activation planning, KOL pricing, campaign persistence, and markdown export.
 
 ## Quick Start
 
@@ -20,27 +20,26 @@ Open `http://localhost:3000`.
 - Next.js App Router full-stack workflow.
 - Prisma + Supabase Postgres persistence.
 - Server actions for creating projects and updating campaigns.
-- Deterministic GTM generation that works without an API key.
+- Deterministic signal and GTM generation that works without an API key.
 - Optional OpenAI-compatible mode with safe local fallback.
 - shadcn/ui-style dashboard components with lucide icons.
 - English, Chinese, and Japanese UI plus localized generated briefs.
-- KOL Market Fit scoring and copy-ready activation briefs.
+- AI Product Signal Radar for topics, sentiment, urgency, key voices, action queue, and strategy report.
+- KOL Action Plan scoring and copy-ready activation briefs.
 - KOL Pricer for budget ranges, expected exposure, deliverables, and CPM.
-- Founder Storytelling Studio for founder narrative, media pitch, X thread, and community copy.
-- Social Listening Radar for market signals and recommended content angles.
-- Campaign Calendar that converts the 14-day launch plan into operator-ready tasks.
+- Founder Storytelling Studio and Campaign Calendar remain as secondary expansion modules.
 - A `/demo` presentation guide for interview walkthroughs.
 - Vitest coverage for validation, GTM generation, and markdown export.
 
 ## Demo Flow
 
 1. Open `/demo?lang=en`, `/demo?lang=zh`, or `/demo?lang=ja` for the interview talk track.
-2. Start on the dashboard and show the seeded VectorForge campaign.
-3. Open MossBench to show a Chinese GTM brief for Asia-focused developer growth.
-4. Open `/kol` to show KOL market scoring, recommended archetypes, and copy-ready activation briefs.
-5. Open `/pricer`, `/story`, `/radar`, and `/calendar` to show budget, narrative, market intelligence, and execution workflows.
-6. Create a new GTM project from `/projects/new`, switch the brief language, and generate another campaign.
-7. Export the markdown brief as a client-facing GTM document or deck input.
+2. Start on the Signal Radar entry screen and explain the product: social listening for AI GTM.
+3. Open `/radar` with the seeded VectorForge campaign to show hot topics, sentiment, urgency, key voices, action queue, and strategy report.
+4. Open `/kol` to show how those signals become market-fit scores, KOL archetypes, and copy-ready activation briefs.
+5. Open `/pricer` to turn the KOL action plan into budget ranges, deliverables, expected exposure, and CPM.
+6. Create a new signal analysis from `/projects/new`, switch the brief language, and show English, Chinese, and Japanese readiness.
+7. Export the markdown brief as a client-facing report or deck input.
 
 ## Languages
 
@@ -85,4 +84,4 @@ npm run build
 
 ## Product Rationale
 
-JE Labs helps AI and frontier-tech teams move from raw product context to launch-ready market strategy. AI GTM Copilot productizes that repeatable workflow into an operator tool: capture context, generate strategy, map distribution, create launch assets, and keep the campaign editable in a workspace.
+JE Labs helps AI and frontier-tech teams move from market attention to launch-ready distribution. AI Product Signal Radar productizes one focused slice of that workflow: read market signals, identify narratives and voices, decide what to do next, and translate the result into KOL activation and pricing.

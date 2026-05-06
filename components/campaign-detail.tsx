@@ -1,6 +1,6 @@
 import type { Campaign, Project } from "@prisma/client";
 import Link from "next/link";
-import { Calculator, CalendarDays, Download, PenLine, RadioTower, UsersRound } from "lucide-react";
+import { Calculator, Download, PenLine, RadioTower, UsersRound } from "lucide-react";
 import { updateCampaign } from "@/app/actions/campaigns";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -29,11 +29,9 @@ export function CampaignDetail({
   const project = projectRecordToInput(campaign.project);
   const updateAction = updateCampaign.bind(null, campaign.id);
   const workbenchLinks = [
-    { href: "/kol", label: dictionary.app.navKolStudio, icon: UsersRound },
-    { href: "/pricer", label: dictionary.app.navPricer, icon: Calculator },
-    { href: "/story", label: dictionary.app.navStory, icon: PenLine },
     { href: "/radar", label: dictionary.app.navRadar, icon: RadioTower },
-    { href: "/calendar", label: dictionary.app.navCalendar, icon: CalendarDays }
+    { href: "/kol", label: dictionary.app.navKolStudio, icon: UsersRound },
+    { href: "/pricer", label: dictionary.app.navPricer, icon: Calculator }
   ];
 
   return (

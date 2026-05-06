@@ -58,9 +58,19 @@ describe("growth workbenches", () => {
 
     expect(radar.summary.topMarket).toBe("US");
     expect(radar.summary.recommendedAngle).toContain("developer");
+    expect(radar.stats.totalSignals).toBeGreaterThanOrEqual(120);
+    expect(radar.stats.highUrgency).toBeGreaterThan(0);
+    expect(radar.stats.opportunityScore).toBeGreaterThanOrEqual(80);
     expect(radar.signals).toHaveLength(4);
     expect(radar.signals[0]?.strength).toBeGreaterThanOrEqual(80);
     expect(radar.signals[0]?.recommendedMove).toContain("technical");
+    expect(radar.topics).toHaveLength(4);
+    expect(radar.topics[0]?.urgency).toBe("high");
+    expect(radar.keyVoices).toHaveLength(3);
+    expect(radar.keyVoices[0]?.activationMove).toContain("brief");
+    expect(radar.actionQueue).toHaveLength(4);
+    expect(radar.actionQueue[0]?.action).toContain("Reply");
+    expect(radar.strategyReport).toContain("VectorForge");
   });
 
   it("turns the launch calendar into operator-ready tasks", () => {

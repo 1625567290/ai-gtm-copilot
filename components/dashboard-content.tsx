@@ -1,6 +1,6 @@
 import type { Campaign, Project } from "@prisma/client";
 import Link from "next/link";
-import { ArrowUpRight, Calculator, CalendarDays, Gauge, Layers3, PenLine, Plus, RadioTower, Target, UsersRound } from "lucide-react";
+import { ArrowUpRight, Calculator, Gauge, Layers3, Plus, RadioTower, Target, UsersRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,41 +32,68 @@ export function DashboardContent({
   dictionary: Dictionary;
 }) {
   const activeCount = campaigns.filter((campaign) => campaign.status === "active").length;
+  const sampleCampaign = campaigns[0];
+  const radarHref = sampleCampaign ? `/radar?campaignId=${sampleCampaign.id}` : "/radar";
   const workbenches = [
     {
-      href: "/kol",
-      label: dictionary.app.navKolStudio,
-      description: dictionary.dashboard.workbenchDescriptions.kol,
-      icon: UsersRound
-    },
-    {
-      href: "/pricer",
-      label: dictionary.app.navPricer,
-      description: dictionary.dashboard.workbenchDescriptions.pricer,
-      icon: Calculator
-    },
-    {
-      href: "/story",
-      label: dictionary.app.navStory,
-      description: dictionary.dashboard.workbenchDescriptions.story,
-      icon: PenLine
-    },
-    {
-      href: "/radar",
+      href: radarHref,
       label: dictionary.app.navRadar,
       description: dictionary.dashboard.workbenchDescriptions.radar,
       icon: RadioTower
     },
     {
-      href: "/calendar",
-      label: dictionary.app.navCalendar,
-      description: dictionary.dashboard.workbenchDescriptions.calendar,
-      icon: CalendarDays
+      href: sampleCampaign ? `/kol?campaignId=${sampleCampaign.id}` : "/kol",
+      label: dictionary.app.navKolStudio,
+      description: dictionary.dashboard.workbenchDescriptions.kol,
+      icon: UsersRound
+    },
+    {
+      href: sampleCampaign ? `/pricer?campaignId=${sampleCampaign.id}` : "/pricer",
+      label: dictionary.app.navPricer,
+      description: dictionary.dashboard.workbenchDescriptions.pricer,
+      icon: Calculator
     }
   ];
 
   return (
     <div className="space-y-6">
+      <section className="rounded-lg border border-primary/25 bg-primary/5 p-5">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-white px-2.5 py-1 text-xs font-medium text-primary">
+              <RadioTower className="h-3.5 w-3.5" aria-hidden="true" />
+              {dictionary.dashboard.eyebrow}
+            </div>
+            <h2 className="mt-4 text-2xl font-semibold tracking-normal text-foreground">
+              {dictionary.dashboard.signalDeskTitle}
+            </h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
+              {dictionary.dashboard.signalDeskDescription}
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Link href={withLocale(radarHref, locale)} className={cn(buttonVariants({ variant: "default" }), "cursor-pointer")}>
+                <RadioTower className="h-4 w-4" aria-hidden="true" />
+                {dictionary.dashboard.openRadar}
+              </Link>
+              <Link href={withLocale("/projects/new", locale)} className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer bg-white")}>
+                <Plus className="h-4 w-4" aria-hidden="true" />
+                {dictionary.dashboard.startIntake}
+              </Link>
+            </div>
+          </div>
+          <div className="grid gap-2">
+            {dictionary.dashboard.workflowSteps.map((step, index) => (
+              <div key={step} className="grid grid-cols-[2rem_1fr] gap-3 rounded-md border border-border bg-white p-3">
+                <span className="flex h-8 w-8 items-center justify-center rounded-md bg-secondary text-sm font-semibold text-primary">
+                  {index + 1}
+                </span>
+                <span className="self-center text-sm font-medium text-slate-700">{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
@@ -105,7 +132,7 @@ export function DashboardContent({
           <h2 className="text-base font-semibold">{dictionary.dashboard.workbenchesTitle}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{dictionary.dashboard.workbenchesDescription}</p>
         </div>
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid gap-3 md:grid-cols-3">
           {workbenches.map((workbench) => (
             <Link
               key={workbench.href}

@@ -19,13 +19,20 @@ describe("i18n helpers", () => {
 
   it("ships Chinese, English, and Japanese dictionaries", () => {
     expect(Object.keys(dictionaries).sort()).toEqual(["en", "ja", "zh"]);
-    expect(getDictionary("zh").dashboard.title).toBe("GTM 工作台");
-    expect(getDictionary("ja").dashboard.title).toBe("GTM ワークスペース");
-    expect(getDictionary("en").app.navKolStudio).toBe("KOL Studio");
+    expect(getDictionary("en").app.productName).toBe("AI Product Signal Radar");
+    expect(getDictionary("zh").app.productName).toBe("AI 产品信号雷达");
+    expect(getDictionary("ja").app.productName).toBe("AI Product Signal Radar");
+    expect(getDictionary("zh").dashboard.title).toBe("AI 产品信号雷达");
+    expect(getDictionary("ja").dashboard.title).toBe("AI Product Signal Radar");
+    expect(getDictionary("en").app.navDashboard).toBe("Signal Radar");
+    expect(getDictionary("en").app.navKolStudio).toBe("KOL Action Plan");
+    expect(getDictionary("zh").app.navKolStudio).toBe("KOL 行动计划");
     expect(getDictionary("en").app.navPricer).toBe("KOL Pricer");
-    expect(getDictionary("zh").app.navRadar).toBe("社媒雷达");
+    expect(getDictionary("zh").app.navRadar).toBe("信号雷达");
     expect(getDictionary("zh").intake.formError).toContain("目标市场");
     expect(getDictionary("zh").app.navDemoGuide).toBe("展示指南");
-    expect(getDictionary("ja").demo.route).toHaveLength(10);
+    expect(getDictionary("zh").demo.opening).toContain("社交信号");
+    expect(getDictionary("en").demo.route).toHaveLength(6);
+    expect(getDictionary("ja").demo.route).toHaveLength(6);
   });
 });

@@ -1,12 +1,10 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  CalendarDays,
   Calculator,
   CheckCircle2,
   FilePlus2,
   LayoutDashboard,
-  PenLine,
   RadioTower,
   Route,
   UsersRound
@@ -101,32 +99,12 @@ export default async function DemoGuidePage({
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
-                href={withLocale("/story", locale)}
-                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
-              >
-                <span className="inline-flex items-center gap-2">
-                  <PenLine className="h-4 w-4" aria-hidden="true" />
-                  {dictionary.app.navStory}
-                </span>
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link
                 href={withLocale("/radar", locale)}
                 className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
               >
                 <span className="inline-flex items-center gap-2">
                   <RadioTower className="h-4 w-4" aria-hidden="true" />
                   {dictionary.app.navRadar}
-                </span>
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href={withLocale("/calendar", locale)}
-                className={cn(buttonVariants({ variant: "outline" }), "cursor-pointer justify-between")}
-              >
-                <span className="inline-flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4" aria-hidden="true" />
-                  {dictionary.app.navCalendar}
                 </span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>

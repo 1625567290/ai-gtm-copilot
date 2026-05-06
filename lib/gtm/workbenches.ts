@@ -54,13 +54,49 @@ export type SocialSignal = {
   recommendedMove: string;
 };
 
+export type SignalTopic = {
+  name: string;
+  urgency: "high" | "medium" | "low";
+  strength: number;
+  rationale: string;
+  recommendedAction: string;
+};
+
+export type KeyVoice = {
+  name: string;
+  role: string;
+  market: string;
+  whyItMatters: string;
+  activationMove: string;
+};
+
+export type SignalAction = {
+  action: string;
+  priority: TaskPriority;
+  channel: string;
+  owner: string;
+  evidence: string;
+};
+
 export type SocialListeningRadar = {
   summary: {
     topMarket: string;
     strongestSignal: string;
     recommendedAngle: string;
   };
+  stats: {
+    totalSignals: number;
+    positive: number;
+    mixed: number;
+    watch: number;
+    highUrgency: number;
+    opportunityScore: number;
+  };
   signals: SocialSignal[];
+  topics: SignalTopic[];
+  keyVoices: KeyVoice[];
+  actionQueue: SignalAction[];
+  strategyReport: string;
 };
 
 export type CampaignTask = {
@@ -325,6 +361,12 @@ export function buildSocialListeningRadar(
   const proofSignal = technical ? "developer proof requests" : "operator proof requests";
   const benchmarkSignal = input.category === "AI Infra" || input.category === "Data Platform" ? "benchmark credibility" : "workflow proof";
   const recommendedAngle = localizedCopy[locale].recommendedAngle;
+  const totalSignals = 120 + input.targetMarkets.length * 24 + input.audiences.length * 18;
+  const positive = Math.round(totalSignals * 0.48);
+  const mixed = Math.round(totalSignals * 0.34);
+  const watch = totalSignals - positive - mixed;
+  const highUrgency = Math.max(8, Math.round(totalSignals * 0.12));
+  const opportunityScore = Math.min(94, 78 + input.targetMarkets.length * 4 + (technical ? 6 : 2));
 
   const signals: SocialSignal[] = [
     {
@@ -380,14 +422,245 @@ export function buildSocialListeningRadar(
             : "use before/after workflow proof to avoid generic AI positioning."
     }
   ];
+  const strongestSignal = signals[0]?.topic ?? proofSignal;
+
+  const topics: SignalTopic[] = [
+    {
+      name:
+        locale === "zh"
+          ? `${input.name} 的 proof 可信度`
+          : locale === "ja"
+            ? `${input.name} の proof 信頼性`
+            : `${input.name} proof credibility`,
+      urgency: "high",
+      strength: 92,
+      rationale:
+        locale === "zh"
+          ? `${primaryMarket} 的早期讨论正在寻找可验证的技术证明，而不是泛泛的 AI 叙事。`
+          : locale === "ja"
+            ? `${primaryMarket} の初期議論は一般的な AI 訴求ではなく、検証可能な技術 proof を求めています。`
+            : `${primaryMarket} conversations are asking for verifiable technical proof instead of generic AI positioning.`,
+      recommendedAction:
+        locale === "zh"
+          ? "优先发布 benchmark 图、demo clip 和 founder thread。"
+          : locale === "ja"
+            ? "benchmark 図、demo clip、founder thread を優先公開します。"
+            : "Reply with benchmark visuals, a demo clip, and a founder thread."
+    },
+    {
+      name:
+        locale === "zh"
+          ? `${secondaryMarket} 本地化 KOL 教育`
+          : locale === "ja"
+            ? `${secondaryMarket} ローカル KOL 教育`
+            : `${secondaryMarket} localized KOL education`,
+      urgency: "medium",
+      strength: 84,
+      rationale:
+        locale === "zh"
+          ? "跨市场受众需要本地语境下的使用案例和可信解释。"
+          : locale === "ja"
+            ? "複数市場のオーディエンスには、ローカル文脈でのユースケースと信頼できる説明が必要です。"
+            : "Cross-market audiences need local use cases and trusted explanation from familiar voices.",
+      recommendedAction:
+        locale === "zh"
+          ? "给 2-3 位本地 builder-educator brief 一条教育型 thread。"
+          : locale === "ja"
+            ? "2-3 名のローカル builder-educator に教育型 thread を brief します。"
+            : "Brief 2-3 local builder-educators on one education-led thread."
+    },
+    {
+      name:
+        locale === "zh"
+          ? "竞品差异化压力"
+          : locale === "ja"
+            ? "競合との差別化圧力"
+            : "competitor differentiation pressure",
+      urgency: "medium",
+      strength: 78,
+      rationale:
+        locale === "zh"
+          ? "用户会把新 AI 产品放进已知竞品框架里比较，需要明确 before/after。"
+          : locale === "ja"
+            ? "ユーザーは新しい AI プロダクトを既存競合の枠組みで比較するため、明確な before/after が必要です。"
+            : "Users compare new AI products through known competitor frames, so the before/after needs to be explicit.",
+      recommendedAction:
+        locale === "zh"
+          ? "把护城河转成一张 before/after 工作流对比图。"
+          : locale === "ja"
+            ? "moat を before/after ワークフロー比較に変換します。"
+            : "Turn the moat into a before/after workflow comparison."
+    },
+    {
+      name:
+        locale === "zh"
+          ? "发布时机叙事"
+          : locale === "ja"
+            ? "ローンチタイミングのナラティブ"
+            : "launch timing narrative",
+      urgency: "low",
+      strength: 72,
+      rationale:
+        locale === "zh"
+          ? "媒体和社区更容易传播带有品类时机判断的发布故事。"
+          : locale === "ja"
+            ? "メディアとコミュニティはカテゴリタイミングを含むローンチストーリーを広げやすいです。"
+            : "Media and communities are more likely to share launch stories with a category-timing point of view.",
+      recommendedAction:
+        locale === "zh"
+          ? "把发布目标包装成“为什么现在”的市场 timing hook。"
+          : locale === "ja"
+            ? "launch goal を「なぜ今か」の market timing hook に変換します。"
+            : "Package the launch goal as a why-now market timing hook."
+    }
+  ];
+
+  const keyVoices: KeyVoice[] = [
+    {
+      name: technical ? "AI infra builder-educator" : "AI product workflow educator",
+      role:
+        locale === "zh"
+          ? "技术解释型 KOL"
+          : locale === "ja"
+            ? "技術解説型 KOL"
+            : "Technical explainer KOL",
+      market: primaryMarket,
+      whyItMatters:
+        locale === "zh"
+          ? "能把复杂技术转成开发者愿意转发的 proof。"
+          : locale === "ja"
+            ? "複雑な技術を開発者が共有しやすい proof に変換できます。"
+            : "Can turn complex product proof into developer-native content that travels.",
+      activationMove:
+        locale === "zh"
+          ? "brief 一条 benchmark-led thread，并提供 demo clip 素材。"
+          : locale === "ja"
+            ? "benchmark-led thread を brief し、demo clip 素材を提供します。"
+            : "brief a benchmark-led thread and provide demo clip assets."
+    },
+    {
+      name: "Community operator",
+      role:
+        locale === "zh"
+          ? "社区运营型 KOL"
+          : locale === "ja"
+            ? "コミュニティ運営型 KOL"
+            : "Community operator",
+      market: secondaryMarket,
+      whyItMatters:
+        locale === "zh"
+          ? "能把讨论从单条曝光推进到 AMA、反馈和 beta 转化。"
+          : locale === "ja"
+            ? "単発露出から AMA、feedback、beta conversion へ議論を進められます。"
+            : "Moves attention from one-off exposure into AMA, feedback, and beta conversion.",
+      activationMove:
+        locale === "zh"
+          ? "brief 一个 30 分钟社区 AMA 和反馈收集帖。"
+          : locale === "ja"
+            ? "30 分の community AMA と feedback post を brief します。"
+            : "brief a 30-minute community AMA and feedback capture post."
+    },
+    {
+      name: "Newsletter analyst",
+      role:
+        locale === "zh"
+          ? "垂直媒体分析师"
+          : locale === "ja"
+            ? "専門 newsletter analyst"
+            : "Vertical newsletter analyst",
+      market: "Global",
+      whyItMatters:
+        locale === "zh"
+          ? "能把产品发布放进品类趋势和市场 timing 中解释。"
+          : locale === "ja"
+            ? "プロダクトローンチをカテゴリトレンドと market timing の文脈で説明できます。"
+            : "Frames the launch inside category timing and market trend context.",
+      activationMove:
+        locale === "zh"
+          ? "brief 一段 why-now pitch，加上 3 个 proof bullet。"
+          : locale === "ja"
+            ? "why-now pitch と 3 つの proof bullet を brief します。"
+            : "brief a why-now pitch with 3 proof bullets."
+    }
+  ];
+
+  const actionQueue: SignalAction[] = [
+    {
+      action:
+        locale === "zh"
+          ? "回复高意图讨论并附上技术 proof"
+          : locale === "ja"
+            ? "高意図の議論に technical proof 付きで返信"
+            : "Reply to high-intent discussions with technical proof",
+      priority: "high",
+      channel: "X / developer communities",
+      owner: "Growth",
+      evidence: topics[0]?.name ?? strongestSignal
+    },
+    {
+      action:
+        locale === "zh"
+          ? "给核心 KOL 发送本地化 activation brief"
+          : locale === "ja"
+            ? "Core KOL にローカライズした activation brief を送付"
+            : "Send localized activation briefs to core KOLs",
+      priority: "high",
+      channel: "KOL outreach",
+      owner: "Partnerships",
+      evidence: keyVoices[0]?.name ?? "KOL conversations"
+    },
+    {
+      action:
+        locale === "zh"
+          ? "放大 benchmark 和 before/after 工作流"
+          : locale === "ja"
+            ? "benchmark と before/after workflow を増幅"
+            : "Amplify benchmark and before/after workflow proof",
+      priority: "medium",
+      channel: "Founder content",
+      owner: "Founder",
+      evidence: topics[2]?.name ?? benchmarkSignal
+    },
+    {
+      action:
+        locale === "zh"
+          ? "监控竞品对比和负面异议"
+          : locale === "ja"
+            ? "競合比較と反論をモニタリング"
+            : "Monitor competitor comparisons and objections",
+      priority: "medium",
+      channel: "Social listening",
+      owner: "Marketing engineer",
+      evidence: signals[3]?.topic ?? "differentiation pressure"
+    }
+  ];
+
+  const strategyReport =
+    locale === "zh"
+      ? `${input.name} 当前最值得抓住的 GTM 机会是 ${primaryMarket} 的「${topics[0]?.name}」。建议先用 founder-led proof 回应高意图讨论，再把 ${keyVoices[0]?.name} 和 ${keyVoices[1]?.name} 组合成一轮 KOL activation。预算应优先投向 ${primaryMarket}，同时用 ${secondaryMarket} 做本地化教育验证。`
+      : locale === "ja"
+        ? `${input.name} の最も強い GTM 機会は ${primaryMarket} の「${topics[0]?.name}」です。まず founder-led proof で高意図の議論に応答し、${keyVoices[0]?.name} と ${keyVoices[1]?.name} を組み合わせた KOL activation を実行します。予算は ${primaryMarket} を優先し、${secondaryMarket} でローカライズ教育を検証します。`
+        : `${input.name}'s strongest GTM opportunity is ${topics[0]?.name} in ${primaryMarket}. Lead with founder-led proof for high-intent conversations, then activate ${keyVoices[0]?.name} and ${keyVoices[1]?.name} as a paired KOL motion. Budget should prioritize ${primaryMarket} while using ${secondaryMarket} to validate localized education.`;
 
   return {
     summary: {
       topMarket: primaryMarket,
-      strongestSignal: signals[0]?.topic ?? proofSignal,
+      strongestSignal,
       recommendedAngle
     },
-    signals
+    stats: {
+      totalSignals,
+      positive,
+      mixed,
+      watch,
+      highUrgency,
+      opportunityScore
+    },
+    signals,
+    topics,
+    keyVoices,
+    actionQueue,
+    strategyReport
   };
 }
 

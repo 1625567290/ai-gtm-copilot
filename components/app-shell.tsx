@@ -7,7 +7,6 @@ import {
   FilePlus2,
   PenLine,
   Presentation,
-  RadioTower,
   Rocket,
   UsersRound
 } from "lucide-react";
@@ -37,10 +36,11 @@ export function AppShell({
     { href: "/projects/new", label: dictionary.app.navNewProject, icon: FilePlus2 },
     { href: "/kol", label: dictionary.app.navKolStudio, icon: UsersRound },
     { href: "/pricer", label: dictionary.app.navPricer, icon: Calculator },
-    { href: "/story", label: dictionary.app.navStory, icon: PenLine },
-    { href: "/radar", label: dictionary.app.navRadar, icon: RadioTower },
-    { href: "/calendar", label: dictionary.app.navCalendar, icon: CalendarDays },
     { href: "/demo", label: dictionary.app.navDemoGuide, icon: Presentation }
+  ];
+  const expansionItems = [
+    { href: "/story", label: dictionary.app.navStory, icon: PenLine },
+    { href: "/calendar", label: dictionary.app.navCalendar, icon: CalendarDays }
   ];
 
   return (
@@ -80,6 +80,18 @@ export function AppShell({
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
             {dictionary.app.jeFitDescription}
           </p>
+          <div className="mt-3 grid gap-1 border-t border-border pt-3">
+            {expansionItems.map((item) => (
+              <Link
+                key={item.href}
+                href={withLocale(item.href, locale)}
+                className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-xs font-medium text-slate-600 transition-colors duration-200 hover:bg-white hover:text-foreground"
+              >
+                <item.icon className="h-3.5 w-3.5" aria-hidden="true" />
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </aside>
 
