@@ -5,10 +5,12 @@ import { getDictionary, getLocale } from "@/lib/i18n";
 export default async function NewProjectPage({
   searchParams
 }: {
-  searchParams?: Promise<{ lang?: string | string[] }>;
+  searchParams?: Promise<{ lang?: string | string[]; error?: string | string[] }>;
 }) {
-  const locale = getLocale((await searchParams)?.lang);
+  const params = await searchParams;
+  const locale = getLocale(params?.lang);
   const dictionary = getDictionary(locale);
+  const error = Array.isArray(params?.error) ? params?.error[0] : params?.error;
 
   return (
     <AppShell
@@ -18,7 +20,7 @@ export default async function NewProjectPage({
       dictionary={dictionary}
       currentPath="/projects/new"
     >
-      <ProjectIntakeForm locale={locale} dictionary={dictionary} />
+      <ProjectIntakeForm locale={locale} dictionary={dictionary} error={error === "validation"} />
     </AppShell>
   );
 }

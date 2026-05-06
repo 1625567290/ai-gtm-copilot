@@ -24,6 +24,7 @@ describe("i18n helpers", () => {
     expect(getDictionary("en").app.navKolStudio).toBe("KOL Studio");
     expect(getDictionary("en").app.navPricer).toBe("KOL Pricer");
     expect(getDictionary("zh").app.navRadar).toBe("社媒雷达");
+    expect(getDictionary("zh").intake.formError).toContain("目标市场");
     expect(getDictionary("zh").app.navDemoGuide).toBe("展示指南");
     expect(getDictionary("ja").demo.route).toHaveLength(10);
   });

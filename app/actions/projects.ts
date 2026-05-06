@@ -14,7 +14,7 @@ function value(formData: FormData, key: string) {
 
 export async function createProjectAndCampaign(formData: FormData) {
   const locale = getLocale(value(formData, "locale"));
-  const input = projectIntakeSchema.parse({
+  const result = projectIntakeSchema.safeParse({
     name: value(formData, "name"),
     website: value(formData, "website"),
     category: value(formData, "category"),
@@ -29,6 +29,11 @@ export async function createProjectAndCampaign(formData: FormData) {
     outputLocale: value(formData, "outputLocale") || undefined
   });
 
+  if (!result.success) {
+    redirect(withLocale("/projects/new?error=validation", locale));
+  }
+
+  const input = result.data;
   const plan = await generateCampaignPlanWithOptionalAi(input);
   await ensureDemoDatabase();
   const campaign = await prisma.$transaction(async (tx) => {

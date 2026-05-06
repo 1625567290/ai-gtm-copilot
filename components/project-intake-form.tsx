@@ -45,11 +45,13 @@ function Field({
 function CheckboxGroup({
   name,
   options,
-  labels
+  labels,
+  defaultValues = []
 }: {
   name: string;
   options: readonly string[];
   labels: Partial<Record<string, string>>;
+  defaultValues?: readonly string[];
 }) {
   return (
     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -58,7 +60,7 @@ function CheckboxGroup({
           key={option}
           className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-white px-3 py-2 text-sm transition-colors duration-200 hover:bg-secondary"
         >
-          <Checkbox name={name} value={option} />
+          <Checkbox name={name} value={option} defaultChecked={defaultValues.includes(option)} />
           <span>{labels[option] ?? option}</span>
         </label>
       ))}
@@ -68,10 +70,12 @@ function CheckboxGroup({
 
 export function ProjectIntakeForm({
   locale,
-  dictionary
+  dictionary,
+  error = false
 }: {
   locale: Locale;
   dictionary: Dictionary;
+  error?: boolean;
 }) {
   return (
     <form action={createProjectAndCampaign} className="grid gap-6 xl:grid-cols-[1fr_360px]">
@@ -84,6 +88,12 @@ export function ProjectIntakeForm({
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-5">
+          {error ? (
+            <div role="alert" className="rounded-md border border-orange-200 bg-orange-50 px-4 py-3 text-sm leading-6 text-orange-900">
+              {dictionary.intake.formError}
+            </div>
+          ) : null}
+
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label={dictionary.intake.productName}>
               <Input name="name" placeholder="VectorForge" required />
@@ -130,11 +140,21 @@ export function ProjectIntakeForm({
           </div>
 
           <Field label={dictionary.intake.targetMarkets} description={dictionary.intake.targetMarketsDescription} asLabel={false}>
-            <CheckboxGroup name="targetMarkets" options={markets} labels={dictionary.options.markets} />
+            <CheckboxGroup
+              name="targetMarkets"
+              options={markets}
+              labels={dictionary.options.markets}
+              defaultValues={["US", "Japan"]}
+            />
           </Field>
 
           <Field label={dictionary.intake.targetAudiences} description={dictionary.intake.targetAudiencesDescription} asLabel={false}>
-            <CheckboxGroup name="audiences" options={audiences} labels={dictionary.options.audiences} />
+            <CheckboxGroup
+              name="audiences"
+              options={audiences}
+              labels={dictionary.options.audiences}
+              defaultValues={["developers", "AI researchers"]}
+            />
           </Field>
 
           <Field label={dictionary.intake.productSummary}>
