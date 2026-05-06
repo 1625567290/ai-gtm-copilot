@@ -71,9 +71,9 @@ export const projectIntakeSchema = z.object({
   stage: z.enum(stages),
   targetMarkets: z.array(z.enum(markets)).min(1, "Select at least one target market."),
   audiences: z.array(z.enum(audiences)).min(1, "Select at least one target audience."),
-  summary: z.string().trim().min(20, "Product summary should be at least 20 characters.").max(800),
-  moat: z.string().trim().min(10, "Differentiation should be at least 10 characters.").max(600),
-  launchGoal: z.string().trim().min(10, "Launch goal should be at least 10 characters.").max(400),
+  summary: z.string().trim().min(1, "Product summary is required.").max(800),
+  moat: z.string().trim().min(1, "Differentiation is required.").max(600),
+  launchGoal: z.string().trim().min(1, "Launch goal is required.").max(400),
   budgetBand: z.enum(budgetBands),
   tone: z.enum(tones),
   outputLocale: z.enum(outputLocales).default("en")

@@ -54,6 +54,17 @@ describe("projectIntakeSchema", () => {
     expect(result.error?.issues[0]?.message).toBe("Website must be a valid URL.");
   });
 
+  it("accepts concise filled text for interview demo intake", () => {
+    const result = projectIntakeSchema.safeParse({
+      ...validIntake,
+      summary: "AI signal radar",
+      moat: "Fast insight",
+      launchGoal: "Demo ready"
+    });
+
+    expect(result.success).toBe(true);
+  });
+
   it("requires at least one target market and audience", () => {
     const result = projectIntakeSchema.safeParse({
       ...validIntake,
