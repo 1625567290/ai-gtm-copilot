@@ -29,7 +29,9 @@ describe("i18n helpers", () => {
     expect(getDictionary("zh").app.navKolStudio).toBe("KOL 行动计划");
     expect(getDictionary("en").app.navPricer).toBe("KOL Pricer");
     expect(getDictionary("zh").app.navRadar).toBe("信号雷达");
-    expect(getDictionary("zh").intake.formError).toContain("目标市场");
+    expect(getDictionary("zh").intake.formError).toContain("网址格式");
+    expect(getDictionary("zh").intake.sampleButton).toBe("使用示例 AI 产品");
+    expect(getDictionary("en").intake.fieldErrors.website).toContain("valid URL");
     expect(getDictionary("zh").app.navDemoGuide).toBe("展示指南");
     expect(getDictionary("zh").demo.opening).toContain("社交信号");
     expect(getDictionary("en").demo.route).toHaveLength(6);

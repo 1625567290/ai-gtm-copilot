@@ -256,6 +256,8 @@ export const dictionaries = {
       cardTitle: "Product Context",
       cardDescription: "Capture enough context to generate credible market signals, KOL actions, and pricing guidance.",
       formError: "Please check the website URL, required product fields, target markets, and target audiences, then submit again.",
+      sampleButton: "Use sample AI product",
+      sampleDescription: "Prefills a demo-ready AI infra product.",
       productName: "Product name",
       website: "Website",
       category: "Category",
@@ -282,7 +284,23 @@ export const dictionaries = {
         "KOL pricing ranges",
         "Shareable markdown export"
       ],
-      submit: "Generate signal report"
+      submit: "Generate signal report",
+      submitPending: "Generating Signal Radar...",
+      submitHint: "After submit, the app creates a Signal Radar report and opens the KOL action workflow.",
+      fieldErrors: {
+        name: "Enter a product name.",
+        website: "Use a valid URL, or leave it blank.",
+        category: "Choose a category.",
+        stage: "Choose a stage.",
+        targetMarkets: "Select at least one target market.",
+        audiences: "Select at least one target audience.",
+        summary: "Add a short product summary.",
+        moat: "Add one differentiation point.",
+        launchGoal: "Add a launch goal.",
+        budgetBand: "Choose a budget band.",
+        tone: "Choose a tone.",
+        outputLocale: "Choose an output language."
+      }
     },
     campaign: {
       eyebrow: "Campaign strategy",
@@ -549,6 +567,8 @@ export const dictionaries = {
       cardTitle: "产品上下文",
       cardDescription: "收集足够上下文，用来生成可信的市场信号、KOL 动作和报价建议。",
       formError: "请检查网址格式、必填产品信息、目标市场和目标受众，然后重新提交。",
+      sampleButton: "使用示例 AI 产品",
+      sampleDescription: "一键填入适合面试演示的 AI Infra 示例。",
       productName: "产品名称",
       website: "官网",
       category: "类别",
@@ -569,7 +589,23 @@ export const dictionaries = {
       outputsTitle: "生成内容",
       outputsDescription: "信号雷达会在生成后立即保存一份报告。",
       outputs: ["信号摘要和机会评分", "热点话题和关键声音", "KOL 行动计划", "KOL 报价区间", "可分享的 Markdown 导出"],
-      submit: "生成信号报告"
+      submit: "生成信号报告",
+      submitPending: "正在生成信号雷达...",
+      submitHint: "提交后会创建 Signal Radar 报告，并进入 KOL 行动工作流。",
+      fieldErrors: {
+        name: "请输入产品名称。",
+        website: "请输入有效 URL，或留空。",
+        category: "请选择产品类别。",
+        stage: "请选择阶段。",
+        targetMarkets: "请至少选择一个目标市场。",
+        audiences: "请至少选择一个目标受众。",
+        summary: "请填写一句产品简介。",
+        moat: "请填写一个差异化点。",
+        launchGoal: "请填写发布目标。",
+        budgetBand: "请选择预算区间。",
+        tone: "请选择叙事语气。",
+        outputLocale: "请选择输出语言。"
+      }
     },
     campaign: {
       eyebrow: "活动策略",
@@ -838,6 +874,8 @@ export const dictionaries = {
       cardTitle: "プロダクト文脈",
       cardDescription: "信頼できる市場シグナル、KOL アクション、価格ガイドを生成するための文脈を入力します。",
       formError: "URL 形式、必須プロダクト情報、対象市場、対象オーディエンスを確認してから再送信してください。",
+      sampleButton: "サンプル AI プロダクトを使用",
+      sampleDescription: "デモしやすい AI Infra 例を自動入力します。",
       productName: "プロダクト名",
       website: "Web サイト",
       category: "カテゴリ",
@@ -858,7 +896,23 @@ export const dictionaries = {
       outputsTitle: "生成される内容",
       outputsDescription: "Radar は生成後すぐにシグナルレポートを保存します。",
       outputs: ["シグナルサマリーと機会スコア", "Hot topics と key voices", "KOL action plan", "KOL pricing ranges", "共有可能な Markdown export"],
-      submit: "シグナルレポートを生成"
+      submit: "シグナルレポートを生成",
+      submitPending: "Signal Radar を生成中...",
+      submitHint: "送信後、Signal Radar レポートを作成し、KOL action workflow を開きます。",
+      fieldErrors: {
+        name: "プロダクト名を入力してください。",
+        website: "有効な URL を入力するか、空欄にしてください。",
+        category: "カテゴリを選択してください。",
+        stage: "ステージを選択してください。",
+        targetMarkets: "対象市場を少なくとも一つ選択してください。",
+        audiences: "対象オーディエンスを少なくとも一つ選択してください。",
+        summary: "短いプロダクト概要を入力してください。",
+        moat: "差別化ポイントを一つ入力してください。",
+        launchGoal: "ローンチ目標を入力してください。",
+        budgetBand: "予算帯を選択してください。",
+        tone: "トーンを選択してください。",
+        outputLocale: "出力言語を選択してください。"
+      }
     },
     campaign: {
       eyebrow: "キャンペーン戦略",

@@ -2,10 +2,15 @@
 
 import { redirect } from "next/navigation";
 import { ensureDemoDatabase } from "@/lib/db/bootstrap";
+import {
+  type ProjectIntakeFormState,
+  projectIntakeValuesFromFormData,
+  validationFailureState
+} from "@/lib/forms/project-intake";
 import { prisma } from "@/lib/db/prisma";
 import { generateCampaignPlanWithOptionalAi } from "@/lib/gtm/generate";
 import { campaignPlanToRecord } from "@/lib/gtm/persistence";
-import { getLocale, withLocale } from "@/lib/i18n";
+import { getLocale } from "@/lib/i18n";
 import { analysisResultPath } from "@/lib/navigation";
 import { projectIntakeSchema } from "@/lib/validation/project";
 
@@ -13,25 +18,16 @@ function value(formData: FormData, key: string) {
   return String(formData.get(key) ?? "");
 }
 
-export async function createProjectAndCampaign(formData: FormData) {
+export async function createProjectAndCampaign(
+  _previousState: ProjectIntakeFormState,
+  formData: FormData
+): Promise<ProjectIntakeFormState> {
   const locale = getLocale(value(formData, "locale"));
-  const result = projectIntakeSchema.safeParse({
-    name: value(formData, "name"),
-    website: value(formData, "website"),
-    category: value(formData, "category"),
-    stage: value(formData, "stage"),
-    targetMarkets: formData.getAll("targetMarkets").map(String),
-    audiences: formData.getAll("audiences").map(String),
-    summary: value(formData, "summary"),
-    moat: value(formData, "moat"),
-    launchGoal: value(formData, "launchGoal"),
-    budgetBand: value(formData, "budgetBand"),
-    tone: value(formData, "tone"),
-    outputLocale: value(formData, "outputLocale") || undefined
-  });
+  const values = projectIntakeValuesFromFormData(formData);
+  const result = projectIntakeSchema.safeParse(values);
 
   if (!result.success) {
-    redirect(withLocale("/projects/new?error=validation", locale));
+    return validationFailureState(values, result.error);
   }
 
   const input = result.data;
